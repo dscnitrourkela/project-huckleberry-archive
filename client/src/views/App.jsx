@@ -1,29 +1,34 @@
 import React from 'react';
-import { Router, Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // Hooks
-import createBrowserHistory from '../history';
+// import createBrowserHistory from '../history';
 
 // Components
 import LiveStream from './LiveStream';
 import Profile from './Profile';
+import Sidebar from '../components/marginals/Sidebar';
 
 function App() {
-  const { path } = useRouteMatch();
+  // const { path } = useRouteMatch();
 
   const renderRoutes = () => (
     <Switch>
-      <Route path={`${path}/livestream`}>
+      <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      <Route path={`${path}/profile`}>
+      <Route path={`/profile`} exact>
         <Profile />
       </Route>
-      <Redirect to={`${path}/livestream`} />
+      <Redirect to={`/livestream`} />
     </Switch>
   );
-
-  return <Router history={createBrowserHistory}>{renderRoutes()}</Router>;
+  // history={createBrowserHistory}
+  return (
+    <BrowserRouter>
+      <Sidebar>{renderRoutes()}</Sidebar>
+    </BrowserRouter>
+  );
 }
 
 export default App;

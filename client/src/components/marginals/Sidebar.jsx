@@ -14,15 +14,14 @@ import {
   IconButton,
   ListItemIcon,
   ListItem,
-} from '@material-ui/core';
-import {
-  MenuIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   ListItemText,
-  InboxIcon,
-  MailIcon,
-} from '@material-ui/core/icons';
+} from '@material-ui/core';
+// import { MenuIcon, ChevronLeftIcon, ChevronRightIcon, ListItemText, InboxIcon, MailIcon } from '@material-ui/icons';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 
 const drawerWidth = 240;
 
