@@ -1,0 +1,65 @@
+{
+  "name": "react-client-template",
+  "version": "1.0.0",
+  "description": "A quick way to make a React App without create-react-app with minimal packages with Docker support",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "eslint": "lerna run --parallel --stream eslint",
+    "posteslint": "npm run prettier-readmes",
+    "prettier-readmes": "prettier --write **/**/*.md --tab-width 3 --single-quote true",
+    "start": "webpack-dev-server --mode=development",
+    "test": "jest --watch",
+    "test:ci": "npm run test -- --ci --coverage true --no-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dscnitrourkela/react-template.git"
+  },
+  "keywords": [
+    "react",
+    "init",
+    "template",
+    "js"
+  ],
+  "author": "DSC NIT Rourkela",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dscnitrourkela/react-template/issues"
+  },
+  "homepage": "https://github.com/dscnitrourkela/react-template#readme",
+  "dependencies": {
+    "@babel/core": "^7.11.5",
+    "@babel/node": "^7.10.5",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.2",
+    "html-webpack-plugin": "^4.4.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "style-loader": "^1.2.1",
+    "svg-url-loader": "^6.0.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.3.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.4",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "jest": "^26.4.2",
+    "prettier": "2.1.1"
+  }
+}
