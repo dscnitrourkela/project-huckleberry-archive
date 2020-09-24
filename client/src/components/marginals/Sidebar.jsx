@@ -17,6 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 import useWindowSize from '../../hooks/useWindowSize';
 
 import { Link } from 'react-router-dom';
@@ -166,6 +167,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 10,
     height: '4em',
     display: 'flex',
+    width: '100%',
     justifyContent: 'center',
   },
   menuButton: {
