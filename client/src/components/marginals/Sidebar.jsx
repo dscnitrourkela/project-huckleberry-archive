@@ -90,6 +90,11 @@ function ResponsiveDrawer(props) {
           <Typography variant='h6' noWrap>
             Responsive drawer
           </Typography>
+          <Link style={{ color: 'white'}} to="/login" className={classes.listItem}>
+            <Typography align='right'  variant='h6' noWrap>
+              Sign in
+            </Typography>
+          </Link> 
         </Toolbar>
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
