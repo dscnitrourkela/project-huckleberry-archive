@@ -1,9 +1,34 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
+import axios from 'axios';
 
-function Profile() {
+import Card from '../components/Card';
+
+function Profile(props) {
+  const [profile,setProfile]=useState({});
+  
+  useEffect(()=>{        
+    const uuid=localStorage.getItem('uuid')
+    if(uuid){
+      axios.get( 
+        "https://badges.dscnitrourkela.tech/api/badges/collection/"+uuid
+      ).then((res)=>{
+        console.log(res.data);
+        setProfile(res.data);
+        
+      }).catch((err)=>{
+        console.log(err);
+      })
+    }
+    
+
+  },[]);
   return (
     <div>
       <h1>Profile</h1>
+      {profile.badges!==undefined?<h2>Email : {profile.email}</h2>:null}
+      {profile.badges!==undefined?profile.badges.map((each,index)=>(
+        <Card image={each.image} name={each.name}  key={index}>badge</Card>
+      )):<h2>No badges</h2>}
     </div>
   );
 }
