@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import {TwitchEmbed, TwitchChat, TwitchClip, TwitchPlayer} from 'react-twitch-embed'
 
 // Components
 import VideoPlayer from '../components/livestream/VideoPlayer';
@@ -13,14 +14,14 @@ function LiveStream() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={12} lg={8}>
           <Paper elevation={2} className={classes.videoplayer}>
-            <VideoPlayer url='https://www.twitch.tv/arab' controls={true} />
+            <VideoPlayer url='https://www.twitch.tv/dscnitrourkela' controls={true} />
           </Paper>
         </Grid>
 
         <Grid item xs={12} md={12} lg={4}>
           <Paper elevation={2} className={classes.chat}>
             <h1 style={{ margin: 0 }}>Chat</h1>
-            <Chat url='https://www.twitch.tv/embed/dscnitrourkela/chat?parent=<parent>' />
+            <TwitchChat channel="dscnitrourkela" theme="dark" />
           </Paper>
         </Grid>
       </Grid>

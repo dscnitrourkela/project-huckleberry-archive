@@ -1,6 +1,7 @@
 # Firebase
 .firebase/
 .firebaserc
+firebase-debug.log
 
 
 ### Linux ###
