@@ -1,9 +1,6 @@
 import React,{useState} from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-// Hooks
-// import createBrowserHistory from '../history';
-
 // Components
 import LiveStream from './LiveStream';
 import Profile from './Profile';
@@ -28,7 +25,7 @@ function App() {
       <Redirect to={`/livestream`} />
     </Switch>
   );
-  // history={createBrowserHistory}
+
   return (
     <BrowserRouter>
       <Sidebar isAuth={isAuth} >{renderRoutes()}</Sidebar>

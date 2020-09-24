@@ -95,8 +95,7 @@ function ResponsiveDrawer(props) {
             onClick={handleDrawerToggle}
             className={classes.menuButton}>
             <MenuIcon />
-          </IconButton>
-          
+          </IconButton>          
           {
             props.isAuth?(<Link style={{ color: 'white'}} to="/profile" className={classes.listItem}>
             <Typography align='right'  variant='h6' noWrap>
@@ -110,7 +109,6 @@ function ResponsiveDrawer(props) {
           </Link> 
           )
           }
-          
         </Toolbar>
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
