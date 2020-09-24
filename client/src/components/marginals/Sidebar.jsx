@@ -89,7 +89,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' noWrap>
-            Responsive drawer
+            DSC NIT Rourkela
           </Typography>
         </Toolbar>
       </AppBar>
