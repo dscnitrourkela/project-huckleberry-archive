@@ -95,9 +95,7 @@ function ResponsiveDrawer(props) {
             className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap>
-            Responsive drawer
-          </Typography>
+          
           {
             props.isAuth?(<Link style={{ color: 'white'}} to="/profile" className={classes.listItem}>
             <Typography align='right'  variant='h6' noWrap>

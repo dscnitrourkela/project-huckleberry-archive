@@ -15,6 +15,8 @@ function Profile(props) {
         console.log(res.data);
         setProfile(res.data);
         
+      }).catch((err)=>{
+        console.log(err);
       })
     }
     
@@ -23,7 +25,7 @@ function Profile(props) {
   return (
     <div>
       <h1>Profile</h1>
-      <h2>Email : {profile.email}</h2>
+      {profile.badges!==undefined?<h2>Email : {profile.email}</h2>:null}
       {profile.badges!==undefined?profile.badges.map((each,index)=>(
         <Card image={each.image} name={each.name}  key={index}>badge</Card>
       )):<h2>No badges</h2>}

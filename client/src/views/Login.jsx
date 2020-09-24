@@ -24,48 +24,50 @@ function Login(props) {
     useEffect(()=> {
         if(localStorage.getItem('uuid')){
             props.setAuthVal(true);
-        }
-        setLoading(true);
-        firebase.auth().getRedirectResult().then(function(result) {
-            if (result.credential) {
-              // This gives you a Google Access Token. You can use it to access the Google API.
-              const token = result.credential.accessToken;              
-                axios.post("https://badges.dscnitrourkela.tech/api/auth/convert-token",{
-                    "grant_type": "convert_token",
-                    "client_id": "BJlOifRQBb0zg0vVrbz0h62iaRhSrli8OJkt5Jz1",
-                    "backend": "google-oauth2",
-                    "token": token
-                }).then((res)=>{;
-                    props.setUserToken(res.data.access_token);
-                    console.log(res.data.access_token);
-                    const config = {
-                        headers: { Authorization: `Bearer ${res.data.access_token}` }
-                    };  
-                    axios.get( 
-                    "https://badges.dscnitrourkela.tech/api/sessions",
-                    config
-                    ).then((res)=>{
-                        console.log(res.data);
-                        localStorage.setItem('uuid',res.data.uuid)
-                        props.setAuthVal(true);                    
-
+        }else{
+            setLoading(true);
+            firebase.auth().getRedirectResult().then(function(result) {
+                if (result.credential) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const token = result.credential.accessToken;              
+                localStorage.setItem('userToken',token);
+                    axios.post("https://badges.dscnitrourkela.tech/api/auth/convert-token",{
+                        "grant_type": "convert_token",
+                        "client_id": "BJlOifRQBb0zg0vVrbz0h62iaRhSrli8OJkt5Jz1",
+                        "backend": "google-oauth2",
+                        "token": token
+                    }).then((res)=>{
+                        props.setUserToken(res.data.access_token);
+                        console.log(res.data.access_token);
+                        const config = {
+                            headers: { Authorization: `Bearer ${res.data.access_token}` }
+                        };  
+                        axios.get( 
+                        "https://badges.dscnitrourkela.tech/api/sessions",
+                        config
+                        ).then((res)=>{
+                            console.log(res.data);
+                            localStorage.setItem('uuid',res.data.uuid)
+                            props.setAuthVal(true);  
+                        })
+                        
                     })
-                    
-                })
-            }else{
-                setLoading(false);
-            }
-          }).catch(function(error) {
-              
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-        });
+                }else{
+                    setLoading(false);
+                }
+            }).catch(function(error) {
+                
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+        }
+        
         
 
     },[])
@@ -88,7 +90,6 @@ function Login(props) {
             <Redirect to="/profile"/>
         ):(
             loading?<Spinner/>:(<div>
-                <h1>Login</h1>
                 <Button variant="contained" color="primary" onClick={loginBtnHandler}>Sign in With Google</Button>
                 </div>)
         );
