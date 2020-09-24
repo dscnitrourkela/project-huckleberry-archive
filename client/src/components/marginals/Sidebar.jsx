@@ -17,6 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useWindowSize from '../../hooks/useWindowSize';
 
+import { Link } from 'react-router-dom';
+
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -30,27 +32,43 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const primaryList = [
+    {
+      name: 'Livestream',
+      path: '/livestream',
+      icon: <InboxIcon />,
+      key: 'list_item_1',
+    },
+    {
+      name: 'Profile',
+      path: '/profile',
+      icon: <MailIcon />,
+      key: 'list_item_2',
+    },
+  ];
+
   const drawer = (
-    <div>
+    <div className={classes.list}>
       <div className={classes.toolbar} />
-      <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {primaryList.map(({ name, path, icon, key }, index) => (
+          <Link to={path} key={key} className={classes.listItem}>
+            <ListItem button key={name}>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={name} />
+            </ListItem>
+          </Link>
+        ))}
+      </List>
+      <Divider />
+      {/* <List>
+        {[].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      </List> */}
     </div>
   );
 
@@ -125,10 +143,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
+    zIndex: theme.zIndex.drawer + 10,
+    height: '4em',
+    display: 'flex',
+    justifyContent: 'center',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -145,5 +163,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     minHeight: '100vh',
+  },
+  list: {
+    marginTop: '2em',
+  },
+  listItem: {
+    textDecoration: 'none',
+    color: '#000',
   },
 }));
