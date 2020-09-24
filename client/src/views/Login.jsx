@@ -1,8 +1,9 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import axios from 'axios';
-
+import  { Redirect } from 'react-router-dom';
+import Spinner from '../components/Spinner/Spinner';
 import { Button } from '@material-ui/core';
 
 const firebaseConfig = {
@@ -18,9 +19,13 @@ const firebaseConfig = {
   
 
 
-function Login() {
+function Login(props) {
+    const [loading,setLoading]=useState(false);
     useEffect(()=> {
-        console.log("started...");
+        if(localStorage.getItem('uuid')){
+            props.setAuthVal(true);
+        }
+        setLoading(true);
         firebase.auth().getRedirectResult().then(function(result) {
             if (result.credential) {
               // This gives you a Google Access Token. You can use it to access the Google API.
@@ -30,13 +35,28 @@ function Login() {
                     "client_id": "BJlOifRQBb0zg0vVrbz0h62iaRhSrli8OJkt5Jz1",
                     "backend": "google-oauth2",
                     "token": token
-                }).then((res)=>{
+                }).then((res)=>{;
+                    props.setUserToken(res.data.access_token);
                     console.log(res.data.access_token);
+                    const config = {
+                        headers: { Authorization: `Bearer ${res.data.access_token}` }
+                    };  
+                    axios.get( 
+                    "https://badges.dscnitrourkela.tech/api/sessions",
+                    config
+                    ).then((res)=>{
+                        console.log(res.data);
+                        localStorage.setItem('uuid',res.data.uuid)
+                        props.setAuthVal(true);                    
+
+                    })
+                    
                 })
+            }else{
+                setLoading(false);
             }
-            // The signed-in user info.
-            var user = result.user;
           }).catch(function(error) {
+              
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -45,7 +65,8 @@ function Login() {
             // The firebase.auth.AuthCredential type that was used.
             var credential = error.credential;
             // ...
-          });
+        });
+        
 
     },[])
 
@@ -53,19 +74,24 @@ function Login() {
     
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    if(!firebase.apps.length){
+        firebase.initializeApp(firebaseConfig)
+    }
+    
     const provider = new firebase.auth.GoogleAuthProvider();
-    const loginBtnHandler=()=>{
-        firebase.auth().signInWithRedirect(provider);        
+    const loginBtnHandler=()=>{        
+        firebase.auth().signInWithRedirect(provider);    
     }
 
 
-    return (
-        <div>
-        <h1>Login</h1>
-        <Button variant="contained" color="primary" onClick={loginBtnHandler}>Sign in With Google</Button>
-        </div>
-    );
+    return props.isAuth?(
+            <Redirect to="/profile"/>
+        ):(
+            loading?<Spinner/>:(<div>
+                <h1>Login</h1>
+                <Button variant="contained" color="primary" onClick={loginBtnHandler}>Sign in With Google</Button>
+                </div>)
+        );
 }
 
 export default Login;

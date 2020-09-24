@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // Hooks
@@ -12,17 +12,18 @@ import Sidebar from '../components/marginals/Sidebar';
 
 function App() {
   // const { path } = useRouteMatch();
-
+  const [isAuth,setAuth]=useState(false);
+  const [userToken,setUserToken]=useState("");
   const renderRoutes = () => (
     <Switch>
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
       <Route path={`/profile`} exact>
-        <Profile />
+        <Profile userToken={userToken} />
       </Route>  
       <Route path={`/login`} exact>
-        <Login />
+        <Login setUserToken={setUserToken} isAuth={isAuth} setAuthVal={setAuth} />
       </Route>      
       <Redirect to={`/livestream`} />
     </Switch>
@@ -30,7 +31,7 @@ function App() {
   // history={createBrowserHistory}
   return (
     <BrowserRouter>
-      <Sidebar>{renderRoutes()}</Sidebar>
+      <Sidebar isAuth={isAuth} >{renderRoutes()}</Sidebar>
     </BrowserRouter>
   );
 }
