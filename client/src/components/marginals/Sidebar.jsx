@@ -10,7 +10,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import LiveTvIcon from '@material-ui/icons/LiveTv';
+import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -32,33 +34,43 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const primaryList = [
-    {
-      name: 'Livestream',
-      path: '/livestream',
-      icon: <InboxIcon />,
-      key: 'list_item_1',
-    },
-    {
-      name: 'Profile',
-      path: '/profile',
-      icon: <MailIcon />,
-      key: 'list_item_2',
-    },
-  ];
+  // const primaryList = [
+  //   {
+  //     name: 'Home',
+  //     path: '/home',
+  //     icon: <InboxIcon />,
+  //     key: 'list_item_1',
+  //   },
+  //   {
+  //     name: 'Profile',
+  //     path: '/profile',
+  //     icon: <MailIcon />,
+  //     key: 'list_item_2',
+  //   },
+  //   {
+  //     name: 'Login',
+  //     path: '/login',
+  //     icon: <PersonIcon />,
+  //     key: 'list_item_3',
+  //   }
+  // ];
 
   const drawer = (
     <div className={classes.list}>
       <div className={classes.toolbar} />
-      <List>
-        {primaryList.map(({ name, path, icon, key }, index) => (
-          <Link to={path} key={key} className={classes.listItem}>
-            <ListItem button key={name}>
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={name} />
-            </ListItem>
-          </Link>
-        ))}
+      <List>               
+        <a href="https://dscnitrourkela.tech" className={classes.listItem}>
+        <ListItem button key="Home">
+          <ListItemIcon><HomeIcon/></ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+        </a>
+        <Link to="/livestream" className={classes.listItem}>
+          <ListItem button key="Livestream">
+            <ListItemIcon><LiveTvIcon/></ListItemIcon>
+            <ListItemText primary="Livestream" />
+          </ListItem>
+        </Link> 
       </List>
       <Divider />
       {/* <List>
@@ -90,6 +102,11 @@ function ResponsiveDrawer(props) {
           <Typography variant='h6' noWrap>
             Responsive drawer
           </Typography>
+          <Link style={{ color: 'white'}} to="/login" className={classes.listItem}>
+            <Typography align='right'  variant='h6' noWrap>
+              Sign in
+            </Typography>
+          </Link> 
         </Toolbar>
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>

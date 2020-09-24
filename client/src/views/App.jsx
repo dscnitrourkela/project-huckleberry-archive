@@ -7,6 +7,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // Components
 import LiveStream from './LiveStream';
 import Profile from './Profile';
+import Login from './Login';
 import Sidebar from '../components/marginals/Sidebar';
 
 function App() {
@@ -16,11 +17,11 @@ function App() {
     <Switch>
       <Route path={`/livestream`} exact>
         <LiveStream />
-      </Route>
-      <Route path={`/profile`} exact>
-        <Profile />
-      </Route>
-      <Redirect to={`/livestream`} />
+      </Route>      
+      <Route path={`/login`} exact>
+        <Login />
+      </Route>      
+      <Redirect to={`/profile`} />
     </Switch>
   );
   // history={createBrowserHistory}
