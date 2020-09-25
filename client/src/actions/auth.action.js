@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import firebase from '../firebase';
-import AUTH from './types';
+import { AUTH } from './types';
 
 export const login = () => async (dispatch) => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -20,6 +20,18 @@ export const login = () => async (dispatch) => {
     var errorMessage = error.message;
     console.log(errorCode, errorMessage);
   }
+};
+
+export const logout = () => (dispatch) => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      dispatch({ type: AUTH.LOGIN, payload: { user: {}, badge_auth: false } });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const setBadgesToken = (token) => async (dispatch) => {

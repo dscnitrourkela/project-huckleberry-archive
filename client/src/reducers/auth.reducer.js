@@ -7,23 +7,20 @@ export default (state = initialState, action) => {
     case AUTH.LOGIN:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          user: action.payload,
-        },
+        user: action.payload,
       };
     case AUTH.BADGE_LOGIN:
       return {
         ...state,
-        auth: {
-          ...state.auth,
-          badge_auth: action.payload,
-        },
+        badge_auth: action.payload,
       };
     case AUTH.LOGOUT:
       return {
         ...state,
-        auth: null,
+        user: action.payload.user,
+        badge_auth: action.payload.badge_auth,
       };
+    default:
+      return state;
   }
 };
