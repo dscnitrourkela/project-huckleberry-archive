@@ -1,11 +1,10 @@
 import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import {TwitchEmbed, TwitchChat, TwitchClip, TwitchPlayer} from 'react-twitch-embed'
+import { TwitchChat } from 'react-twitch-embed';
 
 // Components
 import VideoPlayer from '../components/livestream/VideoPlayer';
-import Chat from '../components/livestream/Chat';
 
 function LiveStream() {
   const classes = useStyles();
@@ -21,7 +20,7 @@ function LiveStream() {
         <Grid item xs={12} md={12} lg={4}>
           <Paper elevation={2} className={classes.chat}>
             <h1 style={{ margin: 0 }}>Chat</h1>
-            <TwitchChat channel="dscnitrourkela" theme="dark" />
+            <TwitchChat channel='dscnitrourkela' theme='dark' />
           </Paper>
         </Grid>
       </Grid>

@@ -1,21 +1,21 @@
-import React,{useState} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import React, { useState } from 'react';
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import MailIcon from '@material-ui/icons/Mail';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import useWindowSize from '../../hooks/useWindowSize';
@@ -35,49 +35,28 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  // const primaryList = [
-  //   {
-  //     name: 'Livestream',
-  //     path: '/livestream',
-  //     icon: <InboxIcon />,
-  //     key: 'list_item_1',
-  //   },
-  //   {
-  //     name: 'Profile',
-  //     path: '/profile',
-  //     icon: <MailIcon />,
-  //     key: 'list_item_2',
-  //   },
-  // ];
-
-  
-
   const drawer = (
     <div className={classes.list}>
       <div className={classes.toolbar} />
       <List>
-      <a href="https://dscnitrourkela.tech" className={classes.listItem}>
-        <ListItem button key="Home">
-          <ListItemIcon><HomeIcon/></ListItemIcon>
-            <ListItemText primary="Home" />
+        <a href='https://dscnitrourkela.tech' className={classes.listItem}>
+          <ListItem button key='Home'>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Home' />
           </ListItem>
         </a>
-        <Link to="/livestream" className={classes.listItem}>
-          <ListItem button key="Livestream">
-            <ListItemIcon><LiveTvIcon/></ListItemIcon>
-            <ListItemText primary="Livestream" />
+        <Link to='/livestream' className={classes.listItem}>
+          <ListItem button key='Livestream'>
+            <ListItemIcon>
+              <LiveTvIcon />
+            </ListItemIcon>
+            <ListItemText primary='Livestream' />
           </ListItem>
-        </Link> 
+        </Link>
       </List>
       <Divider />
-      {/* <List>
-        {[].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </div>
   );
 
@@ -95,20 +74,20 @@ function ResponsiveDrawer(props) {
             onClick={handleDrawerToggle}
             className={classes.menuButton}>
             <MenuIcon />
-          </IconButton>          
-          {
-            props.isAuth?(<Link style={{ color: 'white'}} to="/profile" className={classes.listItem}>
-            <Typography align='right'  variant='h6' noWrap>
-              Profile
-            </Typography>
-          </Link> ):(
-            <Link style={{ color: 'white'}} to="/login" className={classes.listItem}>
-            <Typography align='right'  variant='h6' noWrap>
-              Sign in
-            </Typography>
-          </Link> 
-          )
-          }
+          </IconButton>
+          {props.isAuth ? (
+            <Link style={{ color: 'white' }} to='/profile' className={classes.listItem}>
+              <Typography align='right' variant='h6' noWrap>
+                Profile
+              </Typography>
+            </Link>
+          ) : (
+            <Link style={{ color: 'white' }} to='/login' className={classes.listItem}>
+              <Typography align='right' variant='h6' noWrap>
+                Sign in
+              </Typography>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
