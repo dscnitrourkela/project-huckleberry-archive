@@ -8,47 +8,57 @@ import firebase from '../../firebase';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  badge_token: state.auth.badge_token,
-  isLoggedIn: state.auth.isLoggedIn,
+  uuid: state.auth.uuid,
 });
 
 const mapActionsToProps = {
   login,
-  setBadgesToken,
   logout,
+  setBadgesToken,
 };
 
-function LoginButton({ login, setBadgesToken, isLoggedIn, logout, user }) {
+function LoginButton({ login, logout, setBadgesToken, user, uuid }) {
   const classes = useStyles();
   let provider;
 
   useEffect(() => {
-    provider = new firebase.auth.GoogleAuthProvider();
-    if (!localStorage.getItem('uuid')) {
+    if (uuid) {
+      console.log('isLoggedIn: true');
+    } else {
       firebase
         .auth()
         .getRedirectResult()
         .then((result) => {
-          console.log('Hi hi hi');
-          const token = result.credential.accessToken;
-          const user = result.user;
-          setBadgesToken(token);
-          login(user);
+          if (result.credential) {
+            const token = result.credential.accessToken;
+            const { displayName, photoURL, email } = result.user;
+            setBadgesToken(token);
+            login({ displayName, photoURL, email });
+          }
         });
     }
   }, []);
 
-  console.log(user, isLoggedIn);
+  console.log(user, uuid);
 
   const onLoginClick = () => {
+    provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider);
   };
 
+  const onLogoutClick = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => logout())
+      .catch((error) => console.log(error));
+  };
+
   const renderLoginButton = () => {
-    switch (isLoggedIn) {
+    switch (uuid) {
       case undefined:
         <h1>Loading...</h1>;
-      case false:
+      case null:
         return (
           <Button className={classes.button} color='primary' onClick={onLoginClick}>
             Sign in with Google
@@ -56,7 +66,7 @@ function LoginButton({ login, setBadgesToken, isLoggedIn, logout, user }) {
         );
       default:
         return (
-          <Button className={classes.button} color='primary' onClick={logout}>
+          <Button className={classes.button} color='primary' onClick={onLogoutClick}>
             Logout
           </Button>
         );

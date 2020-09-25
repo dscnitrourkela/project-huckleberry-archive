@@ -1,10 +1,3 @@
-// import React, { useEffect } from 'react';
-// import Spinner from '../components/Spinner/Spinner';
-// import { Button } from '@material-ui/core';
-// import { Redirect } from 'react-router-dom';
-
-// function Login() {}
-
 import React, { useEffect, useState } from 'react';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
