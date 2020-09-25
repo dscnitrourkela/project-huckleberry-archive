@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { logout } from '../../actions/auth.action';
+import { logout, setBadgesToken, login } from '../../actions/auth.action';
 import firebase from '../../firebase';
 
 const mapStateToProps = (state) => ({
@@ -13,9 +13,11 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   logout,
+  setBadgesToken,
+  login,
 };
 
-function LoginButton({ logout, uuid }) {
+function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
   const classes = useStyles();
   let provider;
 
@@ -23,9 +25,26 @@ function LoginButton({ logout, uuid }) {
     provider = new firebase.auth.GoogleAuthProvider();
   }, []);
 
-  const onLoginClick = () => {
-    firebase.auth().signInWithRedirect(provider);
+  const onLoginClick = async () => {
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      if (result.credential) {
+        const {
+          user: { displayName, photoURL, email },
+          credential: { accessToken },
+        } = result;
+        await login({ displayName, photoURL, email });
+        await setBadgesToken(accessToken);
+      }
+    } catch (error) {
+      console.log(error.code, error.message);
+    }
   };
+
+  // const onLoginClick = () => {
+  //   firebase.auth().signInWithRedirect(provider);
+  // };
+  console.log(user);
 
   const onLogoutClick = () => {
     firebase
@@ -42,13 +61,13 @@ function LoginButton({ logout, uuid }) {
       case null:
         return (
           <Button className={classes.button} color='primary' onClick={onLoginClick}>
-            Sign in with Google
+            Sign in
           </Button>
         );
       default:
         return (
           <Button className={classes.button} color='primary' onClick={onLogoutClick}>
-            Logout
+            Sign out
           </Button>
         );
     }
@@ -61,9 +80,20 @@ export default connect(mapStateToProps, mapActionsToProps)(LoginButton);
 
 const useStyles = makeStyles(() => ({
   button: {
+    width: 150,
     backgroundColor: '#fff',
-    color: '#000',
+    border: '2px solid #4285F4',
+    color: '#4285F4',
+    fontWeight: 400,
     borderRadius: '0.3em',
+    fontSize: '1.1em',
     padding: '0.6em',
+    marginRight: '2em',
+    '&:hover': {
+      backgroundColor: '#4285F4',
+      color: '#fff',
+    },
   },
 }));
+
+//remove with google, just keep sinin

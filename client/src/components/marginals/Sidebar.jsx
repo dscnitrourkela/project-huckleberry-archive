@@ -20,6 +20,7 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 // Hooks
 import useWindowSize from '../../hooks/useWindowSize';
@@ -62,7 +63,7 @@ function ResponsiveDrawer(props) {
             <ListItemIcon>
               <LiveTvIcon />
             </ListItemIcon>
-            <ListItemText primary='Livestream' />
+            <ListItemText primary='Live' />
           </ListItem>
         </Link>
       </List>
@@ -72,7 +73,7 @@ function ResponsiveDrawer(props) {
           <Link to='/profile' className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
-                <LiveTvIcon />
+                <AccountCircle />
               </ListItemIcon>
               <ListItemText primary='Profile' />
             </ListItem>
@@ -98,7 +99,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant='h5' noWrap>
+            <Typography variant='h5' noWrap className={classes.typographyTitle}>
               DSC NITRkl
             </Typography>
             <LoginButton />
@@ -161,6 +162,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
+    backgroundColor: '#fff',
+    color: '#000',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -184,5 +187,9 @@ const useStyles = makeStyles((theme) => ({
   listItem: {
     textDecoration: 'none',
     color: '#000',
+    fontFamily: '"Open Sans", sans-serif',
+  },
+  typographyTitle: {
+    fontFamily: '"Open Sans", sans-serif',
   },
 }));

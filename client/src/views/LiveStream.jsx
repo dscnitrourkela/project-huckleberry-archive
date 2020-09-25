@@ -13,14 +13,14 @@ function LiveStream() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={12} lg={8}>
           <Paper elevation={2} className={classes.videoplayer}>
-            <VideoPlayer url='https://www.twitch.tv/dscnitrourkela' controls={true} />
+            <VideoPlayer url='https://www.twitch.tv/dscnitrourkela' controls={true} width='100%' height={360} />
           </Paper>
         </Grid>
 
         <Grid item xs={12} md={12} lg={4}>
-          <Paper elevation={2} className={classes.chat}>
+          <Paper elevation={2} className={classes.chatContainer}>
             <h1 style={{ margin: 0 }}>Chat</h1>
-            <TwitchChat channel='dscnitrourkela' theme='dark' />
+            <TwitchChat channel='dscnitrourkela' theme='dark' className={classes.chat} />
           </Paper>
         </Grid>
       </Grid>
@@ -40,9 +40,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '0.5em',
     padding: '1em',
   },
-  chat: {
+  chatContainer: {
+    width: '100%',
     height: '100%',
     padding: '1em',
     borderRadius: '0.5em',
+  },
+  chat: {
+    width: '100%',
+    height: '90%',
   },
 }));
