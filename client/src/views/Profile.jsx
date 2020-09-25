@@ -15,8 +15,12 @@ const mapActionsToProps = {
 
 function Profile({ uuid, profile, fetchUserBadges }) {
   useEffect(() => {
-    if (uuid) {
-      fetchUserBadges(uuid);
+    const paramUuid=window.location.pathname.split('/')[2]
+    // if (uuid) {
+    //   fetchUserBadges(uuid);
+    // }
+    if(paramUuid){
+      fetchUserBadges(paramUuid);
     }
   }, []);
 

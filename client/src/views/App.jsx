@@ -47,8 +47,8 @@ function App({ uuid, login, setBadgesToken, onSignInBadge }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {uuid && (
-        <Route path={`/profile`} exact>
+      {(
+        <Route path={`/profile`}>
           <Profile />
         </Route>
       )}

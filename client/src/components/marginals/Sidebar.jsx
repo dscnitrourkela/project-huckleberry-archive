@@ -69,7 +69,7 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {uuid && (
-          <Link to='/profile' className={classes.listItem}>
+          <Link to={'/profile/'+uuid} className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
                 <LiveTvIcon />
