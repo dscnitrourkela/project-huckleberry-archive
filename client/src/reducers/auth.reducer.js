@@ -8,6 +8,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLoggedId: true,
       };
     case AUTH.BADGE_LOGIN:
       return {
@@ -17,8 +18,9 @@ export default (state = initialState, action) => {
     case AUTH.LOGOUT:
       return {
         ...state,
-        user: action.payload.user,
-        badge_auth: action.payload.badge_auth,
+        user: action.payload,
+        badge_auth: false,
+        isLoggedIn: false,
       };
     default:
       return state;

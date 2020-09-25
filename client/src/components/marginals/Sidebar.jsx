@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+
+// Libraries
+import { Link } from 'react-router-dom';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   AppBar,
   CssBaseline,
@@ -16,19 +20,25 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MenuIcon from '@material-ui/icons/Menu';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+// Hooks
 import useWindowSize from '../../hooks/useWindowSize';
 
-import { Link } from 'react-router-dom';
+// Redux
+import { connect } from 'react-redux';
+
+// Components
+import LoginButton from '../auth/LoginButton';
+
+const mapStateToProps = (state) => ({ user: state.auth.user });
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
-  const { window, children } = props;
+  const { window, children, user } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const windowSize = useWindowSize();
 
   const handleDrawerToggle = () => {
@@ -75,19 +85,12 @@ function ResponsiveDrawer(props) {
             className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          {props.isAuth ? (
-            <Link style={{ color: 'white' }} to='/profile' className={classes.listItem}>
-              <Typography align='right' variant='h6' noWrap>
-                Profile
-              </Typography>
-            </Link>
-          ) : (
-            <Link style={{ color: 'white' }} to='/login' className={classes.listItem}>
-              <Typography align='right' variant='h6' noWrap>
-                Sign in
-              </Typography>
-            </Link>
-          )}
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant='h5' noWrap>
+              DSC NITRkl
+            </Typography>
+            <LoginButton />
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
@@ -128,7 +131,7 @@ function ResponsiveDrawer(props) {
   );
 }
 
-export default ResponsiveDrawer;
+export default connect(mapStateToProps)(ResponsiveDrawer);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -142,7 +145,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 10,
-    height: '4em',
+    height: '5em',
     display: 'flex',
     width: '100%',
     justifyContent: 'center',

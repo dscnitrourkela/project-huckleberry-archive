@@ -3,23 +3,9 @@ import axios from 'axios';
 import firebase from '../firebase';
 import { AUTH } from './types';
 
-export const login = () => async (dispatch) => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  await firebase.auth().signInWithRedirect(provider);
-
-  try {
-    const result = await firebase.auth().getRedirectResult();
-    if (result.credential) {
-      const token = result.credential.accessToken;
-      const user = result.user;
-      localStorage.setItem('g_uuid', token);
-      dispatch({ type: AUTH.LOGIN, payload: user });
-    }
-  } catch (error) {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-  }
+export const login = (user) => async (dispatch) => {
+  console.log('action login', user);
+  dispatch({ type: AUTH.LOGIN, payload: user });
 };
 
 export const logout = () => (dispatch) => {
@@ -27,14 +13,13 @@ export const logout = () => (dispatch) => {
     .auth()
     .signOut()
     .then(() => {
-      dispatch({ type: AUTH.LOGIN, payload: { user: {}, badge_auth: false } });
+      dispatch({ type: AUTH.LOGOUT, payload: null });
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch((error) => console.log(error));
 };
 
 export const setBadgesToken = (token) => async (dispatch) => {
+  console.log('action token', token);
   try {
     const {
       data: { access_token },
