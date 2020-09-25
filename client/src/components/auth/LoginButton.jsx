@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { login, setBadgesToken, logout } from '../../actions/auth.action';
+import { logout } from '../../actions/auth.action';
 import firebase from '../../firebase';
 
 const mapStateToProps = (state) => ({
@@ -12,37 +12,18 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-  login,
   logout,
-  setBadgesToken,
 };
 
-function LoginButton({ login, logout, setBadgesToken, user, uuid }) {
+function LoginButton({ logout, uuid }) {
   const classes = useStyles();
   let provider;
 
   useEffect(() => {
-    if (uuid) {
-      console.log('isLoggedIn: true');
-    } else {
-      firebase
-        .auth()
-        .getRedirectResult()
-        .then((result) => {
-          if (result.credential) {
-            const token = result.credential.accessToken;
-            const { displayName, photoURL, email } = result.user;
-            setBadgesToken(token);
-            login({ displayName, photoURL, email });
-          }
-        });
-    }
+    provider = new firebase.auth.GoogleAuthProvider();
   }, []);
 
-  console.log(user, uuid);
-
   const onLoginClick = () => {
-    provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider);
   };
 

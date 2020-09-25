@@ -30,12 +30,12 @@ import { connect } from 'react-redux';
 // Components
 import LoginButton from '../auth/LoginButton';
 
-const mapStateToProps = (state) => ({ user: state.auth.user });
+const mapStateToProps = (state) => ({ uuid: state.auth.uuid });
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
-  const { window, children, user } = props;
+  const { window, children, uuid } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -67,6 +67,18 @@ function ResponsiveDrawer(props) {
         </Link>
       </List>
       <Divider />
+      <List>
+        {uuid && (
+          <Link to='/profile' className={classes.listItem}>
+            <ListItem button key='Profile'>
+              <ListItemIcon>
+                <LiveTvIcon />
+              </ListItemIcon>
+              <ListItemText primary='Profile' />
+            </ListItem>
+          </Link>
+        )}
+      </List>
     </div>
   );
 
