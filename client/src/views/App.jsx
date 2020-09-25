@@ -11,6 +11,7 @@ import Sidebar from '../components/marginals/Sidebar';
 // Redux
 import { connect } from 'react-redux';
 import { login, setBadgesToken } from '../actions/auth.action';
+import { onSignInBadge } from '../actions/badges.action';
 
 const mapStateToProps = (state) => ({
   uuid: state.auth.uuid,

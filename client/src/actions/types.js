@@ -3,3 +3,8 @@ export const AUTH = {
   LOGOUT: 'LOGOUT',
   BADGE_LOGIN: 'BADGE_LOGIN',
 };
+
+export const BADGES = {
+  FETCH: 'FETCH',
+  ADD: 'ADD',
+};
