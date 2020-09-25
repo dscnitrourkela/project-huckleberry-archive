@@ -1,1 +1,4 @@
-export const TYPE1 = 'TYPE1';
+export const AUTH = {
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
+};
