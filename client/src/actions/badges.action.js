@@ -20,3 +20,16 @@ export const onSignInBadge = (uuid) => async (dispatch) => {
     }
   }
 };
+
+export const countDownBadge = () => async (dispatch) => {
+  const config = { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } };
+
+  const { data } = await axios.post(`https://badges.dscnitrourkela.tech/api/sessions`, { track: 1 }, config);
+
+  if (data) {
+    const { data: badges } = await axios.get(`https://badges.dscnitrourkela.tech/api/badges/collection/${uuid}`);
+    if (badges) {
+      dispatch({ type: BADGES.FETCH, payload: badges });
+    }
+  }
+};

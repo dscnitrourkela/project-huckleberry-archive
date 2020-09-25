@@ -29,7 +29,7 @@ function App({ uuid }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {uuid && (
+      {localStorage.getItem('uuid') && (
         <Route path={`/profile`} exact>
           <Profile />
         </Route>

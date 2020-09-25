@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Paper, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { TwitchChat } from 'react-twitch-embed';
@@ -9,15 +9,30 @@ import useWindowSize from '../hooks/useWindowSize';
 // Components
 import VideoPlayer from '../components/livestream/VideoPlayer';
 
-function LiveStream() {
+// Redux
+import { connect } from 'react-redux';
+import { countDownBadge } from '../actions/badges.action';
+
+const mapActionsToProps = {
+  countDownBadge,
+};
+
+function LiveStream({ countDownBadge }) {
   const classes = useStyles();
   const windowSize = useWindowSize();
+  const [reload, setReload] = useState(false);
 
   const renderer = ({ minutes, seconds }) => (
     <span>
       {zeroPad(minutes)}:{zeroPad(seconds)}
     </span>
   );
+
+  const onCounterComplete = () => {
+    if (localStorage.getItem('uuid')) {
+      countDownBadge();
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -35,7 +50,12 @@ function LiveStream() {
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           <Button className={classes.countdown}>
-            <Countdown date={Date.now() + 900000} style={{ margin: '1em' }} renderer={renderer} />
+            <Countdown
+              date={Date.now() + 10000}
+              style={{ margin: '1em' }}
+              renderer={renderer}
+              onComplete={onCounterComplete}
+            />
           </Button>
         </Grid>
       </Grid>
@@ -43,7 +63,7 @@ function LiveStream() {
   );
 }
 
-export default LiveStream;
+export default connect(() => {}, mapActionsToProps)(LiveStream);
 
 const useStyles = makeStyles((theme) => ({
   root: {

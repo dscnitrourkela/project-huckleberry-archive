@@ -5,7 +5,6 @@ import { fetchUserBadges } from '../actions/badges.action';
 import Card from '../components/Card';
 
 const mapStateToProps = (state) => ({
-  uuid: state.auth.uuid,
   profile: state.badges.badges,
 });
 
@@ -13,8 +12,9 @@ const mapActionsToProps = {
   fetchUserBadges,
 };
 
-function Profile({ uuid, profile, fetchUserBadges }) {
+function Profile({ profile, fetchUserBadges }) {
   useEffect(() => {
+    const uuid = localStorage.getItem('uuid');
     if (uuid) {
       fetchUserBadges(uuid);
     }
