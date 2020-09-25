@@ -14,6 +14,17 @@ function Profile(props) {
       ).then((res)=>{
         console.log(res.data);
         setProfile(res.data);
+        const requestOptions = {
+          headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+        };
+        const bodyP={
+            "badge":"dev"
+        }
+        console.log(requestOptions);
+        axios.get("https://badges.dscnitrourkela.tech/api/badges",requestOptions).then((res)=>{
+            console.log(res.data);
+            // props.setAuthVal(true);  
+        })
         
       }).catch((err)=>{
         console.log(err);
@@ -25,6 +36,8 @@ function Profile(props) {
   return (
     <div>
       <h1>Profile</h1>
+      <h2>{JSON.parse(localStorage.getItem('profile')).name}</h2>
+      <img src={JSON.parse(localStorage.getItem('profile')).picture} />
       {profile.badges!==undefined?<h2>Email : {profile.email}</h2>:null}
       {profile.badges!==undefined?profile.badges.map((each,index)=>(
         <Card image={each.image} name={each.name}  key={index}>badge</Card>

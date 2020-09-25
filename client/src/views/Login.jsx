@@ -29,6 +29,12 @@ function Login(props) {
             firebase.auth().getRedirectResult().then(function(result) {
                 if (result.credential) {
                 // This gives you a Google Access Token. You can use it to access the Google API.
+                const profileObj={
+                    email:result.additionalUserInfo.profile.email,
+                    name:result.additionalUserInfo.profile.name,
+                    picture:result.additionalUserInfo.profile.picture
+                }
+                localStorage.setItem('profile',JSON.stringify(profileObj));
                 const token = result.credential.accessToken;              
                 localStorage.setItem('userToken',token);
                     axios.post("https://badges.dscnitrourkela.tech/api/auth/convert-token",{
@@ -39,16 +45,26 @@ function Login(props) {
                     }).then((res)=>{
                         props.setUserToken(res.data.access_token);
                         console.log(res.data.access_token);
-                        const config = {
+                        let config = {
                             headers: { Authorization: `Bearer ${res.data.access_token}` }
                         };  
                         axios.get( 
-                        "https://badges.dscnitrourkela.tech/api/sessions",
-                        config
+                            "https://badges.dscnitrourkela.tech/api/sessions",
+                            config
                         ).then((res)=>{
                             console.log(res.data);
-                            localStorage.setItem('uuid',res.data.uuid)
-                            props.setAuthVal(true);  
+                            localStorage.setItem('uuid',res.data.uuid)                    
+                            const requestOptions = {
+                                method: 'POST',
+                                headers: { Authorization: `Bearer ${res.data.access_token}` },
+                                body: {
+                                    "badge":"dev"
+                                }
+                            };
+                            fetch("https://badges.dscnitrourkela.tech/api/badges",requestOptions).then((res)=>{
+                                console.log(res.data);
+                                props.setAuthVal(true);  
+                            })
                         })
                         
                     })
