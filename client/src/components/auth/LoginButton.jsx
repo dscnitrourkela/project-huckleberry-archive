@@ -84,9 +84,9 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#fff',
     border: '2px solid #4285F4',
     color: '#4285F4',
-    fontWeight: 400,
-    borderRadius: '0.3em',
-    fontSize: '1.1em',
+    fontWeight: 500,
+    borderRadius: '0.2em',
+    fontSize: '1.2em',
     padding: '0.6em',
     marginRight: '2em',
     '&:hover': {
@@ -95,5 +95,3 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
-
-//remove with google, just keep sinin
