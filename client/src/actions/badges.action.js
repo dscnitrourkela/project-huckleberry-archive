@@ -11,11 +11,7 @@ export const fetchUserBadges = (uuid) => async (dispatch) => {
 export const onSignInBadge = (uuid) => async (dispatch) => {
   const config = { headers: { Authorization: `Bearer ${uuid}` } };
 
-  const { data } = await axios.post(
-    `https://badges.dscnitrourkela.tech/api/badges/`,
-    { badge: 'nitr_devs_signin' },
-    config
-  );
+  const { data } = await axios.post(`https://badges.dscnitrourkela.tech/api/badges/`, { badge: 'party_blob' }, config);
 
   if (data) {
     const { data: badges } = await axios.get(`https://badges.dscnitrourkela.tech/api/badges/collection/${uuid}`);

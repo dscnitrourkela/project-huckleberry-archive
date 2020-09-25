@@ -23,6 +23,10 @@ export const setBadgesToken = (token) => async (dispatch) => {
 
       axios.get('https://badges.dscnitrourkela.tech/api/sessions', config).then(({ data: { uuid } }) => {
         localStorage.setItem('uuid', uuid);
+
+        const config = { headers: { Authorization: `Bearer ${access_token}` } };
+        axios.post(`https://badges.dscnitrourkela.tech/api/badges`, { badge: 'party_blob' }, config);
+
         dispatch({ type: AUTH.BADGE_LOGIN, payload: uuid });
       });
     })

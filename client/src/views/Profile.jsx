@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { fetchUserBadges } from '../actions/badges.action';
 
@@ -31,31 +30,17 @@ function Profile({ uuid, profile, fetchUserBadges }) {
           {profile.badges.length === 0 ? (
             <h3>No Badges Yet!</h3>
           ) : (
-            profile.badges.map((each, index) => (
-              <Card image={each.image} name={each.name} key={index}>
-                badge
-              </Card>
-            ))
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              {profile.badges.map((each, index) => (
+                <Card image={each.image} name={each.name} key={index}>
+                  badge
+                </Card>
+              ))}
+            </div>
           )}
         </div>
       );
   }
-
-  // return (
-  //   <div>
-  //     <h1>Profile</h1>
-  //     {profile.badges !== undefined ? <h2>Email : {profile.email}</h2> : null}
-  //     {profile.badges !== undefined ? (
-  //       profile.badges.map((each, index) => (
-  //         <Card image={each.image} name={each.name} key={index}>
-  //           badge
-  //         </Card>
-  //       ))
-  //     ) : (
-  //       <h2>No badges</h2>
-  //     )}
-  //   </div>
-  // );
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(Profile);

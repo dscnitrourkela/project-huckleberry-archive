@@ -20,9 +20,10 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = {
   login,
   setBadgesToken,
+  onSignInBadge,
 };
 
-function App({ uuid, login, setBadgesToken }) {
+function App({ uuid, login, setBadgesToken, onSignInBadge }) {
   useEffect(() => {
     if (uuid) {
       console.log('isLoggedIn: true');

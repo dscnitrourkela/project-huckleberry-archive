@@ -8,10 +8,14 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 100,
+    width: 150,
+    margin: '1em',
   },
   media: {
     height: 100,
+  },
+  content: {
+    padding: '1em',
   },
 });
 
@@ -21,16 +25,13 @@ export default function MediaCard(props) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={"https://badges.dscnitrourkela.tech"+props.image}
-        />
-        <CardContent>
-          <Typography align="center" gutterBottom variant="h5" component="h2">
+        <CardMedia className={classes.media} image={'https://badges.dscnitrourkela.tech' + props.image} />
+        <CardContent className={classes.content}>
+          <Typography align='center' gutterBottom variant='h5'>
             {props.name}
-          </Typography>          
+          </Typography>
         </CardContent>
-      </CardActionArea>      
+      </CardActionArea>
     </Card>
   );
 }

@@ -35,7 +35,6 @@ function LoginButton({ logout, uuid }) {
       .catch((error) => console.log(error));
   };
 
-  console.log('LoginButton', uuid);
   const renderLoginButton = () => {
     switch (uuid) {
       case undefined:
