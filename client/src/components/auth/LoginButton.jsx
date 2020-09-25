@@ -21,12 +21,9 @@ function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
   const classes = useStyles();
   let provider;
 
-  useEffect(() => {
-    provider = new firebase.auth.GoogleAuthProvider();
-  }, []);
-
   const onLoginClick = async () => {
     try {
+      provider = new firebase.auth.GoogleAuthProvider();
       const result = await firebase.auth().signInWithPopup(provider);
       if (result.credential) {
         const {
