@@ -70,7 +70,7 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider />
       <List>
-        {uuid && (
+        {localStorage.getItem('uuid') && (
           <Link to='/profile' className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>

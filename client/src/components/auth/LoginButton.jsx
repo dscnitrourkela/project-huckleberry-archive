@@ -38,11 +38,6 @@ function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
     }
   };
 
-  // const onLoginClick = () => {
-  //   firebase.auth().signInWithRedirect(provider);
-  // };
-  console.log(user);
-
   const onLogoutClick = () => {
     firebase
       .auth()
@@ -51,10 +46,12 @@ function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
       .catch((error) => console.log(error));
   };
 
+  console.log(localStorage.getItem('uuid'));
+
   const renderLoginButton = () => {
-    switch (uuid) {
+    switch (localStorage.getItem('uuid')) {
       case undefined:
-        <h1>Loading...</h1>;
+        return <h1>Loading...</h1>;
       case null:
         return (
           <Button className={classes.button} color='primary' onClick={onLoginClick}>
