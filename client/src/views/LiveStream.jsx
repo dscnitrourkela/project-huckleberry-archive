@@ -1,7 +1,8 @@
 import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Paper, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { TwitchChat } from 'react-twitch-embed';
+import Countdown, { zeroPad } from 'react-countdown';
 
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -11,6 +12,12 @@ import VideoPlayer from '../components/livestream/VideoPlayer';
 function LiveStream() {
   const classes = useStyles();
   const windowSize = useWindowSize();
+
+  const renderer = ({ minutes, seconds }) => (
+    <span>
+      {zeroPad(minutes)}:{zeroPad(seconds)}
+    </span>
+  );
 
   return (
     <div className={classes.root}>
@@ -25,6 +32,11 @@ function LiveStream() {
           <Paper elevation={2} className={windowSize.width > 700 ? classes.chatContainer : classes.chatContainerMobile}>
             <TwitchChat channel='dscnitrourkela' theme='dark' className={classes.chat} />
           </Paper>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <Button className={classes.countdown}>
+            <Countdown date={Date.now() + 900000} style={{ margin: '1em' }} renderer={renderer} />
+          </Button>
         </Grid>
       </Grid>
     </div>
@@ -65,5 +77,16 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     borderRadius: '0.5em',
     marginTop: '0.4em',
+  },
+  countdown: {
+    width: 150,
+    backgroundColor: '#fff',
+    border: '2px solid #4285F4',
+    color: '#4285F4',
+    fontWeight: 500,
+    borderRadius: '0.2em',
+    fontSize: '1.2em',
+    padding: '0.6em',
+    marginRight: '2em',
   },
 }));

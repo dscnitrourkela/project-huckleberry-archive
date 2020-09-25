@@ -87,7 +87,7 @@ const useStyles = makeStyles(() => ({
     fontWeight: 500,
     borderRadius: '0.2em',
     fontSize: '1.2em',
-    padding: '0.6em',
+    padding: '0.4em',
     marginRight: '2em',
     '&:hover': {
       backgroundColor: '#4285F4',
