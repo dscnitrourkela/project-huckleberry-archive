@@ -3,6 +3,9 @@ import axios from 'axios';
 import { AUTH } from './types';
 
 export const login = (user) => async (dispatch) => {
+  localStorage.setItem('displayName', user.displayName);
+  localStorage.setItem('photoURL', user.photoURL);
+  localStorage.setItem('email', user.email);
   dispatch({ type: AUTH.LOGIN, payload: user });
 };
 

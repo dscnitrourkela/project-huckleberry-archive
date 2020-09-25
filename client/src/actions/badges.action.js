@@ -27,7 +27,9 @@ export const countDownBadge = () => async (dispatch) => {
   const { data } = await axios.post(`https://badges.dscnitrourkela.tech/api/sessions`, { track: 1 }, config);
 
   if (data) {
-    const { data: badges } = await axios.get(`https://badges.dscnitrourkela.tech/api/badges/collection/${uuid}`);
+    const { data: badges } = await axios.get(
+      `https://badges.dscnitrourkela.tech/api/badges/collection/${localStorage.getItem('uuid')}`
+    );
     if (badges) {
       dispatch({ type: BADGES.FETCH, payload: badges });
     }

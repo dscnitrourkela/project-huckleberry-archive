@@ -46,8 +46,6 @@ function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
       .catch((error) => console.log(error));
   };
 
-  console.log(localStorage.getItem('uuid'));
-
   const renderLoginButton = () => {
     switch (localStorage.getItem('uuid')) {
       case undefined:

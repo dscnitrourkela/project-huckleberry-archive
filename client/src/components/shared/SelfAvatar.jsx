@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
@@ -7,14 +7,24 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-const SelfAvatar = ({ alt, user, src }) => {
+const SelfAvatar = ({ alt, user }) => {
   const classes = useStyles();
-  return (
-    <div className={classes.avatarContainer}>
-      <Avatar alt={alt} src={user ? user.photoURL : CURRENT_USER_DATA.photoURL} className={classes.large} />
-      <h4>{user ? user.displayName : CURRENT_USER_DATA.displayName}</h4>
-    </div>
-  );
+
+  switch (localStorage.getItem('displayName')) {
+    case undefined:
+      return <h3>Loading...</h3>;
+    case null:
+      return <h3>User not logged in</h3>;
+    default:
+      return (
+        <div className={classes.avatarContainer}>
+          <Typography variant='h3' className={classes.typography}>
+            {localStorage.getItem('displayName')}
+          </Typography>
+          <Avatar alt={alt} src={localStorage.getItem('photoURL')} className={classes.large} />
+        </div>
+      );
+  }
 };
 
 export default connect(mapStateToProps)(SelfAvatar);
@@ -24,16 +34,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '6em',
     marginBottom: '3em',
     width: '100%',
-    height: '3em',
+    minHeight: '3em',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
     padding: '1.5em 0',
   },
   large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
+    width: theme.spacing(35),
+    height: theme.spacing(35),
     marginBottom: '0.5em',
+  },
+  typography: {
+    fontFamily: '"Open Sans", sans-serif',
+    marginBottom: '1em',
   },
 }));
