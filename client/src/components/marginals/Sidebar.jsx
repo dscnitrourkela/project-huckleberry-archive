@@ -20,6 +20,7 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 // Hooks
 import useWindowSize from '../../hooks/useWindowSize';
@@ -29,6 +30,7 @@ import { connect } from 'react-redux';
 
 // Components
 import LoginButton from '../auth/LoginButton';
+import Logo from '../../static/DSC_Color_SQ.png';
 
 const mapStateToProps = (state) => ({ uuid: state.auth.uuid });
 
@@ -62,23 +64,28 @@ function ResponsiveDrawer(props) {
             <ListItemIcon>
               <LiveTvIcon />
             </ListItemIcon>
-            <ListItemText primary='Livestream' />
+            <ListItemText primary='Live' />
           </ListItem>
         </Link>
       </List>
       <Divider />
       <List>
-        {uuid && (
-          <Link to={'/profile/'+uuid} className={classes.listItem}>
+        {localStorage.getItem('uuid') && (
+          <Link to={'/profile/'+localStorage.getItem('uuid')} className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
-                <LiveTvIcon />
+                <AccountCircle />
               </ListItemIcon>
               <ListItemText primary='Profile' />
             </ListItem>
           </Link>
         )}
       </List>
+      {windowSize.width < 700 && (
+        <List style={{ width: '100%', display: 'flex', justifyContent: 'center', paddingLeft: 30 }}>
+          <LoginButton />
+        </List>
+      )}
     </div>
   );
 
@@ -98,10 +105,16 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant='h5' noWrap>
-              DSC NITRkl
-            </Typography>
-            <LoginButton />
+            <div
+              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+              <div className={classes.imageContainer}>
+                <img src={Logo} style={{ width: '100%', height: '100%' }} />
+              </div>
+              <Typography variant={windowSize.width > 700 ? 'h4' : 'h5'} noWrap className={classes.typographyTitle}>
+                DSC NIT Rourkela
+              </Typography>
+            </div>
+            {windowSize.width > 700 && <LoginButton />}
           </div>
         </Toolbar>
       </AppBar>
@@ -161,10 +174,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
+    backgroundColor: '#fff',
+    color: '#000',
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
@@ -183,6 +198,17 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     textDecoration: 'none',
-    color: '#000',
+    color: '#757575',
+    fontFamily: '"Open Sans", sans-serif',
+  },
+  typographyTitle: {
+    fontFamily: '"Open Sans", sans-serif',
+    marginLeft: '0.5em',
+    fontWeight: 600,
+    color: '#757575',
+  },
+  imageContainer: {
+    height: 50,
+    width: 50,
   },
 }));

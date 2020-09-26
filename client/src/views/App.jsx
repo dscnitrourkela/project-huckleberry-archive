@@ -23,25 +23,7 @@ const mapActionsToProps = {
   onSignInBadge,
 };
 
-function App({ uuid, login, setBadgesToken, onSignInBadge }) {
-  useEffect(() => {
-    if (uuid) {
-      console.log('isLoggedIn: true');
-    } else {
-      firebase
-        .auth()
-        .getRedirectResult()
-        .then((result) => {
-          if (result.credential) {
-            const token = result.credential.accessToken;
-            const { displayName, photoURL, email } = result.user;
-            setBadgesToken(token);
-            login({ displayName, photoURL, email });
-          }
-        });
-    }
-  }, []);
-
+function App({ uuid }) {
   const renderRoutes = () => (
     <Switch>
       <Route path={`/livestream`} exact>
