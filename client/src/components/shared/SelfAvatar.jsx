@@ -19,9 +19,9 @@ const SelfAvatar = ({ alt, user }) => {
       return (
         <div className={classes.avatarContainer}>
           <Typography variant='h3' className={classes.typography}>
-            {localStorage.getItem('displayName')}
+            {localStorage.getItem('displayName') || user.displayName}
           </Typography>
-          <Avatar alt={alt} src={localStorage.getItem('photoURL')} className={classes.large} />
+          <Avatar alt={alt} src={localStorage.getItem('photoURL') || user.photoURL} className={classes.large} />
         </div>
       );
   }
@@ -31,7 +31,7 @@ export default connect(mapStateToProps)(SelfAvatar);
 
 const useStyles = makeStyles((theme) => ({
   avatarContainer: {
-    marginTop: '6em',
+    marginTop: '1em',
     marginBottom: '3em',
     width: '100%',
     minHeight: '3em',

@@ -35,3 +35,7 @@ export const countDownBadge = () => async (dispatch) => {
     }
   }
 };
+
+export const counterFirstLoad = (value) => (dispatch) => {
+  dispatch({ type: BADGES.FIRST_LOAD, payload: value });
+};

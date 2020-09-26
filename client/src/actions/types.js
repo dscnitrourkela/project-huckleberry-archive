@@ -7,4 +7,5 @@ export const AUTH = {
 export const BADGES = {
   FETCH: 'FETCH',
   ADD: 'ADD',
+  FIRST_LOAD: 'FIRST_LOAD',
 };

@@ -15,15 +15,12 @@ const mapActionsToProps = {
   fetchUserBadges,
 };
 
-function Profile({ profile, fetchUserBadges }) {
+function Profile({ profile, fetchUserBadges, user }) {
   const classes = useStyles();
 
   useEffect(() => {
-    const paramUuid=window.location.pathname.split('/')[2]
-    // if (uuid) {
-    //   fetchUserBadges(uuid);
-    // }
-    if(paramUuid){
+    const paramUuid = window.location.pathname.split('/')[2];
+    if (paramUuid) {
       fetchUserBadges(paramUuid);
     }
   }, []);
@@ -33,7 +30,7 @@ function Profile({ profile, fetchUserBadges }) {
       return <h2>Loading...</h2>;
     default:
       return (
-        <div>
+        <div style={{ height: '70vh' }}>
           <SelfAvatar alt='img' />
           <Divider />
           <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>

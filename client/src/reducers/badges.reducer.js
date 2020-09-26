@@ -9,6 +9,11 @@ export default (state = initialState, action) => {
         ...state,
         badges: action.payload,
       };
+    case BADGES.FIRST_LOAD:
+      return {
+        ...state,
+        firstLoad: action.payload,
+      };
     default:
       return state;
   }

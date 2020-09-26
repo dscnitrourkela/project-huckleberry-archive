@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Grid, Paper, Button } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { TwitchChat } from 'react-twitch-embed';
 import Countdown, { zeroPad } from 'react-countdown';
 
@@ -11,16 +12,24 @@ import VideoPlayer from '../components/livestream/VideoPlayer';
 
 // Redux
 import { connect } from 'react-redux';
-import { countDownBadge } from '../actions/badges.action';
+import { countDownBadge, counterFirstLoad } from '../actions/badges.action';
+
+const mapStateToProps = (state) => ({
+  firstLoad: state.badges.firstLoad,
+});
 
 const mapActionsToProps = {
   countDownBadge,
+  counterFirstLoad,
 };
 
-function LiveStream({ countDownBadge }) {
+function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
   const classes = useStyles();
   const windowSize = useWindowSize();
-  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    counterFirstLoad(true);
+  }, []);
 
   const renderer = ({ minutes, seconds }) => (
     <span>
@@ -31,6 +40,7 @@ function LiveStream({ countDownBadge }) {
   const onCounterComplete = () => {
     if (localStorage.getItem('uuid')) {
       countDownBadge();
+      counterFirstLoad(false);
     }
   };
 
@@ -48,22 +58,35 @@ function LiveStream({ countDownBadge }) {
             <TwitchChat channel='dscnitrourkela' theme='dark' className={classes.chat} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12} lg={12}>
-          <Button className={classes.countdown}>
-            <Countdown
-              date={Date.now() + 900000}
-              style={{ margin: '1em' }}
-              renderer={renderer}
-              onComplete={onCounterComplete}
-            />
-          </Button>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          lg={9}
+          style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Typography variant='h5' style={{ marginTop: 10 }}>
+            Sign In to get some exciting badges! Exclusive badge will be sent to you in{' '}
+          </Typography>
+          {<ArrowForwardIcon style={{ margin: 15 }} />}
+        </Grid>
+        <Grid item xs={12} md={3} lg={3}>
+          {firstLoad && (
+            <Button className={classes.countdown}>
+              <Countdown
+                date={Date.now() + 10000}
+                style={{ margin: '1em' }}
+                renderer={renderer}
+                onComplete={onCounterComplete}
+              />
+            </Button>
+          )}
         </Grid>
       </Grid>
     </div>
   );
 }
 
-export default connect(() => {}, mapActionsToProps)(LiveStream);
+export default connect(mapStateToProps, mapActionsToProps)(LiveStream);
 
 const useStyles = makeStyles((theme) => ({
   root: {
