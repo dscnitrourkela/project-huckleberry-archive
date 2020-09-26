@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Grid, Paper, Button } from '@material-ui/core';
+import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { TwitchChat } from 'react-twitch-embed';
 import Countdown, { zeroPad } from 'react-countdown';
 
@@ -57,17 +58,28 @@ function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
             <TwitchChat channel='dscnitrourkela' theme='dark' className={classes.chat} />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12} lg={12}>
-          <Button className={classes.countdown}>
-            {firstLoad && (
+        <Grid
+          item
+          xs={12}
+          md={9}
+          lg={9}
+          style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Typography variant='h5' style={{ marginTop: 10 }}>
+            Sign In to get some exciting badges! Exclusive badge will be sent to you in{' '}
+          </Typography>
+          {<ArrowForwardIcon style={{ margin: 15 }} />}
+        </Grid>
+        <Grid item xs={12} md={3} lg={3}>
+          {firstLoad && (
+            <Button className={classes.countdown}>
               <Countdown
                 date={Date.now() + 10000}
                 style={{ margin: '1em' }}
                 renderer={renderer}
                 onComplete={onCounterComplete}
               />
-            )}
-          </Button>
+            </Button>
+          )}
         </Grid>
       </Grid>
     </div>
