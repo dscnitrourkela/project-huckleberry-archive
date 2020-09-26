@@ -18,7 +18,7 @@ export const setBadgesToken = (token) => async (dispatch) => {
   await axios
     .post('https://badges.dscnitrourkela.tech/api/auth/convert-token', {
       grant_type: 'convert_token',
-      client_id: 'BJlOifRQBb0zg0vVrbz0h62iaRhSrli8OJkt5Jz1',
+      client_id: process.env.REACT_APP_CLIENT_ID,
       backend: 'google-oauth2',
       token: token,
     })

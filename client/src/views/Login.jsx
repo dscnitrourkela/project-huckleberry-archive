@@ -5,7 +5,6 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import Spinner from '../components/Spinner/Spinner';
 import { Button } from '@material-ui/core';
-import dotenv from 'dotenv';
 
 const firebaseConfig = {
     apiKey: "AIzaSyB1mDD2MLmghXbxZ4YSTK61KfYKrw2xAtQ",
@@ -21,7 +20,6 @@ const firebaseConfig = {
 
 
 function Login(props) {
-    dotenv.config();
     const [loading,setLoading]=useState(false);
     useEffect(()=> {
         if(localStorage.getItem('uuid')){

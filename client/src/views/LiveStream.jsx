@@ -51,7 +51,7 @@ function LiveStream({ countDownBadge }) {
         <Grid item xs={12} md={12} lg={12}>
           <Button className={classes.countdown}>
             <Countdown
-              date={Date.now() + 10000}
+              date={Date.now() + 900000}
               style={{ margin: '1em' }}
               renderer={renderer}
               onComplete={onCounterComplete}
