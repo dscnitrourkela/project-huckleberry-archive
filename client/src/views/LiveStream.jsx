@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Paper, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { TwitchChat } from 'react-twitch-embed';
@@ -11,16 +11,24 @@ import VideoPlayer from '../components/livestream/VideoPlayer';
 
 // Redux
 import { connect } from 'react-redux';
-import { countDownBadge } from '../actions/badges.action';
+import { countDownBadge, counterFirstLoad } from '../actions/badges.action';
+
+const mapStateToProps = (state) => ({
+  firstLoad: state.badges.firstLoad,
+});
 
 const mapActionsToProps = {
   countDownBadge,
+  counterFirstLoad,
 };
 
-function LiveStream({ countDownBadge }) {
+function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
   const classes = useStyles();
   const windowSize = useWindowSize();
-  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    counterFirstLoad(true);
+  }, []);
 
   const renderer = ({ minutes, seconds }) => (
     <span>
@@ -31,6 +39,7 @@ function LiveStream({ countDownBadge }) {
   const onCounterComplete = () => {
     if (localStorage.getItem('uuid')) {
       countDownBadge();
+      counterFirstLoad(false);
     }
   };
 
@@ -50,12 +59,14 @@ function LiveStream({ countDownBadge }) {
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           <Button className={classes.countdown}>
-            <Countdown
-              date={Date.now() + 900000}
-              style={{ margin: '1em' }}
-              renderer={renderer}
-              onComplete={onCounterComplete}
-            />
+            {firstLoad && (
+              <Countdown
+                date={Date.now() + 10000}
+                style={{ margin: '1em' }}
+                renderer={renderer}
+                onComplete={onCounterComplete}
+              />
+            )}
           </Button>
         </Grid>
       </Grid>
@@ -63,7 +74,7 @@ function LiveStream({ countDownBadge }) {
   );
 }
 
-export default connect(() => {}, mapActionsToProps)(LiveStream);
+export default connect(mapStateToProps, mapActionsToProps)(LiveStream);
 
 const useStyles = makeStyles((theme) => ({
   root: {
