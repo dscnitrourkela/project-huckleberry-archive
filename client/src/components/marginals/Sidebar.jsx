@@ -21,6 +21,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 // Hooks
 import useWindowSize from '../../hooks/useWindowSize';
@@ -34,7 +35,7 @@ import Logo from '../../static/DSC_Color_SQ.png';
 
 const mapStateToProps = (state) => ({ uuid: state.auth.uuid });
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 function ResponsiveDrawer(props) {
   const { window, children, uuid } = props;
@@ -71,7 +72,7 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {localStorage.getItem('uuid') && (
-          <Link to={'/profile/'+localStorage.getItem('uuid')} className={classes.listItem}>
+          <Link to={'/profile/' + localStorage.getItem('uuid')} className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
                 <AccountCircle />
@@ -86,6 +87,15 @@ function ResponsiveDrawer(props) {
           <LoginButton />
         </List>
       )}
+      <Typography
+        component='h6'
+        style={{ position: 'absolute', bottom: 20, marginLeft: 10, color: '#757575' }}
+        align='center'>
+        Made with <FavoriteIcon color='error' style={{ padding: 0, margin: 0, paddingTop: 10 }} /> with{' '}
+        <a href='https://github.com/kautukkundan/omg-badges' style={{ color: '#757575' }}>
+          omg-badges
+        </a>
+      </Typography>
     </div>
   );
 
