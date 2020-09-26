@@ -5,6 +5,7 @@ import axios from 'axios';
 import  { Redirect } from 'react-router-dom';
 import Spinner from '../components/Spinner/Spinner';
 import { Button } from '@material-ui/core';
+import dotenv from 'dotenv';
 
 const firebaseConfig = {
     apiKey: "AIzaSyB1mDD2MLmghXbxZ4YSTK61KfYKrw2xAtQ",
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 
 function Login(props) {
+    dotenv.config();
     const [loading,setLoading]=useState(false);
     useEffect(()=> {
         if(localStorage.getItem('uuid')){
@@ -39,7 +41,7 @@ function Login(props) {
                 localStorage.setItem('userToken',token);
                     axios.post("https://badges.dscnitrourkela.tech/api/auth/convert-token",{
                         "grant_type": "convert_token",
-                        "client_id": "BJlOifRQBb0zg0vVrbz0h62iaRhSrli8OJkt5Jz1",
+                        "client_id": process.env.CLIENT_ID,
                         "backend": "google-oauth2",
                         "token": token
                     }).then((res)=>{

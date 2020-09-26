@@ -55,6 +55,7 @@
     "redux-thunk": "^2.3.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
+    "dotenv": "^8.2.0",
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
@@ -63,7 +64,7 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
-    "css-loader": "^4.3.0",
+    "css-loader": "^4.3.0",  
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "eslint": "^7.8.1",
