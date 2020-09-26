@@ -1,83 +1,91 @@
-import React,{useState} from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import React, { useState } from 'react';
+
+// Libraries
+import { Link } from 'react-router-dom';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
-import MailIcon from '@material-ui/icons/Mail';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
+// Hooks
 import useWindowSize from '../../hooks/useWindowSize';
 
-import { Link } from 'react-router-dom';
+// Redux
+import { connect } from 'react-redux';
+
+// Components
+import LoginButton from '../auth/LoginButton';
+import Logo from '../../static/DSC_Color_SQ.png';
+
+const mapStateToProps = (state) => ({ uuid: state.auth.uuid });
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
-  const { window, children } = props;
+  const { window, children, uuid } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const windowSize = useWindowSize();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  // const primaryList = [
-  //   {
-  //     name: 'Livestream',
-  //     path: '/livestream',
-  //     icon: <InboxIcon />,
-  //     key: 'list_item_1',
-  //   },
-  //   {
-  //     name: 'Profile',
-  //     path: '/profile',
-  //     icon: <MailIcon />,
-  //     key: 'list_item_2',
-  //   },
-  // ];
-
-  
-
   const drawer = (
     <div className={classes.list}>
       <div className={classes.toolbar} />
       <List>
-      <a href="https://dscnitrourkela.tech" className={classes.listItem}>
-        <ListItem button key="Home">
-          <ListItemIcon><HomeIcon/></ListItemIcon>
-            <ListItemText primary="Home" />
+        <a href='https://dscnitrourkela.tech' className={classes.listItem}>
+          <ListItem button key='Home'>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary='Home' />
           </ListItem>
         </a>
-        <Link to="/livestream" className={classes.listItem}>
-          <ListItem button key="Livestream">
-            <ListItemIcon><LiveTvIcon/></ListItemIcon>
-            <ListItemText primary="Livestream" />
+        <Link to='/livestream' className={classes.listItem}>
+          <ListItem button key='Livestream'>
+            <ListItemIcon>
+              <LiveTvIcon />
+            </ListItemIcon>
+            <ListItemText primary='Live' />
           </ListItem>
-        </Link> 
+        </Link>
       </List>
       <Divider />
-      {/* <List>
-        {[].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
+      <List>
+        {localStorage.getItem('uuid') && (
+          <Link to={'/profile/'+localStorage.getItem('uuid')} className={classes.listItem}>
+            <ListItem button key='Profile'>
+              <ListItemIcon>
+                <AccountCircle />
+              </ListItemIcon>
+              <ListItemText primary='Profile' />
+            </ListItem>
+          </Link>
+        )}
+      </List>
+      {windowSize.width < 700 && (
+        <List style={{ width: '100%', display: 'flex', justifyContent: 'center', paddingLeft: 30 }}>
+          <LoginButton />
+        </List>
+      )}
     </div>
   );
 
@@ -95,20 +103,19 @@ function ResponsiveDrawer(props) {
             onClick={handleDrawerToggle}
             className={classes.menuButton}>
             <MenuIcon />
-          </IconButton>          
-          {
-            props.isAuth?(<Link style={{ color: 'white'}} to="/profile" className={classes.listItem}>
-            <Typography align='right'  variant='h6' noWrap>
-              Profile
-            </Typography>
-          </Link> ):(
-            <Link style={{ color: 'white'}} to="/login" className={classes.listItem}>
-            <Typography align='right'  variant='h6' noWrap>
-              Sign in
-            </Typography>
-          </Link> 
-          )
-          }
+          </IconButton>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+              <div className={classes.imageContainer}>
+                <img src={Logo} style={{ width: '100%', height: '100%' }} />
+              </div>
+              <Typography variant={windowSize.width > 700 ? 'h4' : 'h5'} noWrap className={classes.typographyTitle}>
+                DSC NIT Rourkela
+              </Typography>
+            </div>
+            {windowSize.width > 700 && <LoginButton />}
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
@@ -149,7 +156,7 @@ function ResponsiveDrawer(props) {
   );
 }
 
-export default ResponsiveDrawer;
+export default connect(mapStateToProps)(ResponsiveDrawer);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -163,14 +170,16 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 10,
-    height: '4em',
+    height: '5em',
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
+    backgroundColor: '#fff',
+    color: '#000',
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
@@ -189,6 +198,17 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
     textDecoration: 'none',
-    color: '#000',
+    color: '#757575',
+    fontFamily: '"Open Sans", sans-serif',
+  },
+  typographyTitle: {
+    fontFamily: '"Open Sans", sans-serif',
+    marginLeft: '0.5em',
+    fontWeight: 600,
+    color: '#757575',
+  },
+  imageContainer: {
+    height: 50,
+    width: 50,
   },
 }));

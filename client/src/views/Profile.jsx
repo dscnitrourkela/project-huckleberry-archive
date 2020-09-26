@@ -1,36 +1,69 @@
-import React,{useEffect,useState} from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { fetchUserBadges } from '../actions/badges.action';
+import { Typography, Divider, Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Card from '../components/Card';
+import Card from '../components/shared/Card';
+import SelfAvatar from '../components/shared/SelfAvatar';
 
-function Profile(props) {
-  const [profile,setProfile]=useState({});
-  
-  useEffect(()=>{        
-    const uuid=localStorage.getItem('uuid')
-    if(uuid){
-      axios.get( 
-        "https://badges.dscnitrourkela.tech/api/badges/collection/"+uuid
-      ).then((res)=>{
-        console.log(res.data);
-        setProfile(res.data);
-        
-      }).catch((err)=>{
-        console.log(err);
-      })
+const mapStateToProps = (state) => ({
+  profile: state.badges.badges,
+});
+
+const mapActionsToProps = {
+  fetchUserBadges,
+};
+
+function Profile({ profile, fetchUserBadges }) {
+  const classes = useStyles();
+
+  useEffect(() => {
+    const paramUuid=window.location.pathname.split('/')[2]
+    // if (uuid) {
+    //   fetchUserBadges(uuid);
+    // }
+    if(paramUuid){
+      fetchUserBadges(paramUuid);
     }
-    
+  }, []);
 
-  },[]);
-  return (
-    <div>
-      <h1>Profile</h1>
-      {profile.badges!==undefined?<h2>Email : {profile.email}</h2>:null}
-      {profile.badges!==undefined?profile.badges.map((each,index)=>(
-        <Card image={each.image} name={each.name}  key={index}>badge</Card>
-      )):<h2>No badges</h2>}
-    </div>
-  );
+  switch (profile) {
+    case undefined:
+      return <h2>Loading...</h2>;
+    default:
+      return (
+        <div>
+          <SelfAvatar alt='img' />
+          <Divider />
+          <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+            <Typography variant='h4' className={classes.typography}>
+              Badges
+            </Typography>
+            {profile.badges.length === 0 ? (
+              <h3>No Badges Yet!</h3>
+            ) : (
+              <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+                {profile.badges.map((each, index) => (
+                  <Card image={each.image} name={each.name} key={index}>
+                    badge
+                  </Card>
+                ))}
+              </Container>
+            )}
+          </div>
+        </div>
+      );
+  }
 }
 
-export default Profile;
+export default connect(mapStateToProps, mapActionsToProps)(Profile);
+
+const useStyles = makeStyles(() => ({
+  typography: {
+    width: 'auto',
+    fontFamily: '"Open Sans", sans-serif',
+    marginBottom: '1em',
+    textAlign: 'center',
+  },
+}));
