@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "project-banana-4822"
+  },
+  "targets": {
+    "project-banana-4822": {
+      "hosting": {
+        "livestream": [
+          "dsclivestream"
+        ]
+      }
+    }
+  }
+}
