@@ -15,8 +15,8 @@ jobs:
               with:
                   node-version: '10.x'
             - run: cd ./client
-            - run: npm ci
-            - run: npm run build
+            - run: cd client && npm ci
+            - run: cd client && npm run build
             - uses: w9jds/firebase-action@master
               with:
                   args: deploy --only hosting:livestream
