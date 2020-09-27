@@ -64,16 +64,16 @@ function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
           md={9}
           lg={9}
           style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Typography variant='h5' style={{ marginTop: 10 }}>
-            Sign In to get some exciting badges! Exclusive badge will be sent to you in{' '}
+          <Typography variant='h5' style={{ marginTop: 10,color:'#757575' }}>
+            Signin to get some exciting badges! Exclusive badge will be sent to you in{' '}
           </Typography>
-          {<ArrowForwardIcon style={{ margin: 15 }} />}
+          {<ArrowForwardIcon style={{ margin: 15,color:'#757575' }} />}
         </Grid>
         <Grid item xs={12} md={3} lg={3}>
           {firstLoad && (
             <Button className={classes.countdown}>
               <Countdown
-                date={Date.now() + 10000}
+                date={Date.now() + 900000}
                 style={{ margin: '1em' }}
                 renderer={renderer}
                 onComplete={onCounterComplete}

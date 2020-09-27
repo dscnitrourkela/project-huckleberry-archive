@@ -91,9 +91,9 @@ function ResponsiveDrawer(props) {
         component='h6'
         style={{ position: 'absolute', bottom: 20, marginLeft: 10, color: '#757575' }}
         align='center'>
-        Made with <FavoriteIcon color='error' style={{ padding: 0, margin: 0, paddingTop: 10 }} /> with{' '}
-        <a href='https://github.com/kautukkundan/omg-badges' style={{ color: '#757575' }}>
-          omg-badges
+        Made with <FavoriteIcon color='error' style={{ padding: 0, margin: 0, paddingTop: 10 }} /> by{' '}
+        <a href='https://twitter.com/kautukkundan'>
+          Kautuk
         </a>
       </Typography>
     </div>
