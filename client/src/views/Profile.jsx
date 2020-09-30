@@ -15,7 +15,7 @@ const mapActionsToProps = {
   fetchUserBadges,
 };
 
-function Profile({ profile, fetchUserBadges, user }) {
+function Profile({ profile, fetchUserBadges }) {
   const classes = useStyles();
 
   useEffect(() => {

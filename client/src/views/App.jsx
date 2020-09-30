@@ -13,27 +13,34 @@ import { connect } from 'react-redux';
 import { login, setBadgesToken } from '../actions/auth.action';
 import { onSignInBadge } from '../actions/badges.action';
 
-const mapStateToProps = (state) => ({
-  uuid: state.auth.uuid,
-});
-
 const mapActionsToProps = {
   login,
   setBadgesToken,
   onSignInBadge,
 };
 
-function App({ uuid }) {
+function App({ login }) {
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        login(user);
+        setBadgesToken(localStorage.getItem('access_token'));
+      } else {
+        console.log('no user');
+      }
+    });
+  }, []);
+
   const renderRoutes = () => (
     <Switch>
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {(
+      {
         <Route path={`/profile`}>
           <Profile />
         </Route>
-      )}
+      }
       <Redirect to={`/livestream`} />
     </Switch>
   );
@@ -45,4 +52,4 @@ function App({ uuid }) {
   );
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(App);
+export default connect(null, mapActionsToProps)(App);
