@@ -2,7 +2,7 @@ import { BADGES } from '../actions/types';
 
 const initialState = {
   badges: [],
-  firstLoad: false,
+  firstLoad: true,
 };
 
 export default (state = initialState, action) => {

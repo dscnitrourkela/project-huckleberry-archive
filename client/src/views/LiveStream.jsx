@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
+
+// Material-ui
 import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+// Libraries
 import { TwitchChat } from 'react-twitch-embed';
 import Countdown, { zeroPad } from 'react-countdown';
 
+// Hooks
 import useWindowSize from '../hooks/useWindowSize';
 
 // Components
@@ -16,6 +21,7 @@ import { countDownBadge, counterFirstLoad } from '../actions/badges.action';
 
 const mapStateToProps = (state) => ({
   firstLoad: state.badges.firstLoad,
+  user: state.auth.user,
 });
 
 const mapActionsToProps = {
@@ -27,10 +33,7 @@ function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
   const classes = useStyles();
   const windowSize = useWindowSize();
 
-  useEffect(() => {
-    counterFirstLoad(true);
-  }, []);
-
+  // Counter minutes and seconds renderer
   const renderer = ({ minutes, seconds }) => (
     <span>
       {zeroPad(minutes)}:{zeroPad(seconds)}
@@ -38,7 +41,7 @@ function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
   );
 
   const onCounterComplete = () => {
-    if (localStorage.getItem('uuid')) {
+    if (user) {
       countDownBadge(localStorage.getItem('uuid'));
       counterFirstLoad(false);
     }
@@ -47,28 +50,25 @@ function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={12} lg={8}>
-          <Paper elevation={2} className={windowSize.width > 700 ? classes.videoplayer : classes.videoPlayerMobile}>
+        <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
+          <Paper elevation={2} className={windowSize.width > 850 ? classes.videoplayer : classes.videoPlayerMobile}>
             <VideoPlayer url='https://www.twitch.tv/dscnitrourkela' controls={true} width='100%' />
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={12} lg={4}>
-          <Paper elevation={2} className={windowSize.width > 700 ? classes.chatContainer : classes.chatContainerMobile}>
+        <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+          <Paper elevation={2} className={classes.chatContainer}>
             <TwitchChat channel='dscnitrourkela' theme='dark' className={classes.chat} />
           </Paper>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={9}
-          lg={9}
-          style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Typography variant='h5' style={{ marginTop: 10, color: '#757575' }}>
+
+        <Grid item xs={12} md={9} lg={9} className={classes.heading}>
+          <Typography variant='h5' className={classes.headingTypography}>
             Signin to get some exciting badges! Exclusive badge will be sent to you in{' '}
           </Typography>
           {<ArrowForwardIcon style={{ margin: 15, color: '#757575' }} />}
         </Grid>
+
         <Grid item xs={12} md={3} lg={3}>
           {firstLoad && (
             <Button className={classes.countdown}>
@@ -103,13 +103,6 @@ const useStyles = makeStyles((theme) => ({
   },
   chatContainer: {
     width: '100%',
-    height: '100%',
-    borderRadius: '0.5em',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  chatContainerMobile: {
-    width: '100%',
     height: '60vh',
     borderRadius: '0.5em',
     display: 'flex',
@@ -119,7 +112,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     borderRadius: '0.5em',
-    marginTop: '0.4em',
   },
   countdown: {
     width: 150,
@@ -131,5 +123,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.2em',
     padding: '0.6em',
     marginRight: '2em',
+  },
+  heading: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headingTypography: {
+    marginTop: 10,
+    color: '#757575',
   },
 }));
