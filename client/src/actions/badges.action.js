@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { BADGES } from './types';
+import { API } from '../constants/api';
 
 export const fetchUserBadges = (uuid) => async (dispatch) => {
   try {
     const {
       data: { badges },
-    } = await axios.get(`https://badges.dscnitrourkela.tech/api/badges/collection/${uuid}`);
+    } = await axios.get(`${API.BADGES.PROFILE}${uuid}`);
 
     if (badges) {
       dispatch({ type: BADGES.FETCH, payload: badges });
@@ -19,10 +20,10 @@ export const countDownBadge = (uuid) => async (dispatch) => {
   try {
     const config = { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } };
 
-    const { data } = await axios.post(`https://badges.dscnitrourkela.tech/api/sessions`, { track: 1 }, config);
+    const { data } = await axios.post(API.BADGES.SESSIONS, { track: 1 }, config);
 
     if (data) {
-      const { data: badges } = await axios.get(`https://badges.dscnitrourkela.tech/api/badges/collection/${uuid}`);
+      const { data: badges } = await axios.get(`${API.BADGES.PROFILE}${uuid}`);
       if (badges) {
         dispatch({ type: BADGES.FETCH, payload: badges });
       }

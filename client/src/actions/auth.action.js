@@ -1,6 +1,6 @@
 import axios from 'axios';
-
 import { AUTH } from './types';
+import { API } from '../constants/api';
 
 export const login = (user) => async (dispatch) => {
   dispatch({ type: AUTH.LOGIN, payload: user });
@@ -15,7 +15,7 @@ export const setBadgesToken = (token) => async (dispatch) => {
   try {
     const {
       data: { access_token },
-    } = await axios.post('https://badges.dscnitrourkela.tech/api/auth/convert-token', {
+    } = await axios.post(API.BADGES.CONVERT_TOKEN, {
       grant_type: 'convert_token',
       client_id: process.env.REACT_APP_CLIENT_ID,
       backend: 'google-oauth2',
@@ -27,12 +27,12 @@ export const setBadgesToken = (token) => async (dispatch) => {
 
       const {
         data: { uuid },
-      } = await axios.get('https://badges.dscnitrourkela.tech/api/sessions', config);
+      } = await axios.get(API.BADGES.SESSIONS, config);
       if (uuid) {
         localStorage.setItem('uuid', uuid);
         localStorage.setItem('access_token', access_token);
 
-        axios.post(`https://badges.dscnitrourkela.tech/api/badges`, { badge: 'party_blob' }, config);
+        axios.post(API.BADGES.GRANT, { badge: 'party_blob' }, config);
         dispatch({ type: AUTH.BADGE_LOGIN, payload: uuid });
       }
     }
