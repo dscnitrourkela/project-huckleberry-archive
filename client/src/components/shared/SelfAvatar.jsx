@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 const SelfAvatar = ({ alt, user }) => {
   const classes = useStyles();
 
-  switch (localStorage.getItem('displayName')) {
+  switch (user) {
     case undefined:
       return <h3>Loading...</h3>;
     case null:

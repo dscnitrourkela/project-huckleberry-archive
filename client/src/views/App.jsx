@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
+// Firebase
 import firebase from '../firebase';
 
 // Components
@@ -11,15 +12,13 @@ import Sidebar from '../components/marginals/Sidebar';
 // Redux
 import { connect } from 'react-redux';
 import { login, setBadgesToken } from '../actions/auth.action';
-import { onSignInBadge } from '../actions/badges.action';
 
 const mapActionsToProps = {
   login,
   setBadgesToken,
-  onSignInBadge,
 };
 
-function App({ login }) {
+function App({ login, setBadgesToken }) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

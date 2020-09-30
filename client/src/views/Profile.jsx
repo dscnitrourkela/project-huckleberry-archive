@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { fetchUserBadges } from '../actions/badges.action';
+
+// Libraries
 import { Typography, Divider, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+// Components
 import Card from '../components/shared/Card';
 import SelfAvatar from '../components/shared/SelfAvatar';
+
+// Redux
+import { connect } from 'react-redux';
+import { fetchUserBadges } from '../actions/badges.action';
 
 const mapStateToProps = (state) => ({
   profile: state.badges.badges,
@@ -37,11 +42,11 @@ function Profile({ profile, fetchUserBadges }) {
             <Typography variant='h4' className={classes.typography}>
               Badges
             </Typography>
-            {profile.badges.length === 0 ? (
+            {profile.length === 0 ? (
               <h3>No Badges Yet!</h3>
             ) : (
               <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-                {profile.badges.map((each, index) => (
+                {profile.map((each, index) => (
                   <Card image={each.image} name={each.name} key={index}>
                     badge
                   </Card>

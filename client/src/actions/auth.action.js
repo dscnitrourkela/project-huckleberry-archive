@@ -25,7 +25,9 @@ export const setBadgesToken = (token) => async (dispatch) => {
     if (access_token) {
       const config = { headers: { Authorization: `Bearer ${access_token}` } };
 
-      const uuid = await axios.get('https://badges.dscnitrourkela.tech/api/sessions', config);
+      const {
+        data: { uuid },
+      } = await axios.get('https://badges.dscnitrourkela.tech/api/sessions', config);
       if (uuid) {
         localStorage.setItem('uuid', uuid);
         localStorage.setItem('access_token', access_token);
