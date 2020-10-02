@@ -1,51 +1,33 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // Material-ui
-import { Grid, Paper, Button, Typography } from '@material-ui/core';
+import { Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 // Libraries
 import { TwitchChat } from 'react-twitch-embed';
-import Countdown, { zeroPad } from 'react-countdown';
+import Timer from 'react-compound-timer';
 
 // Hooks
 import useWindowSize from '../hooks/useWindowSize';
 
 // Components
 import VideoPlayer from '../components/livestream/VideoPlayer';
+import Countdown from '../components/livestream/Countdown';
 
 // Redux
 import { connect } from 'react-redux';
-import { countDownBadge, counterFirstLoad } from '../actions/badges.action';
 
 const mapStateToProps = (state) => ({
-  firstLoad: state.badges.firstLoad,
   user: state.auth.user,
 });
 
-const mapActionsToProps = {
-  countDownBadge,
-  counterFirstLoad,
-};
+const mapActionsToProps = {};
 
-function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
+function LiveStream({ user }) {
   const classes = useStyles();
   const windowSize = useWindowSize();
-
-  // Counter minutes and seconds renderer
-  const renderer = ({ minutes, seconds }) => (
-    <span>
-      {zeroPad(minutes)}:{zeroPad(seconds)}
-    </span>
-  );
-
-  const onCounterComplete = () => {
-    if (user) {
-      countDownBadge(localStorage.getItem('uuid'));
-      counterFirstLoad(false);
-    }
-  };
 
   return (
     <div className={classes.root}>
@@ -70,16 +52,7 @@ function LiveStream({ countDownBadge, counterFirstLoad, firstLoad }) {
         </Grid>
 
         <Grid item xs={12} md={3} lg={3}>
-          {firstLoad && (
-            <Button className={classes.countdown}>
-              <Countdown
-                date={Date.now() + 900000}
-                style={{ margin: '1em' }}
-                renderer={renderer}
-                onComplete={onCounterComplete}
-              />
-            </Button>
-          )}
+          <Countdown />
         </Grid>
       </Grid>
     </div>
@@ -112,17 +85,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     borderRadius: '0.5em',
-  },
-  countdown: {
-    width: 150,
-    backgroundColor: '#fff',
-    border: '2px solid #4285F4',
-    color: '#4285F4',
-    fontWeight: 500,
-    borderRadius: '0.2em',
-    fontSize: '1.2em',
-    padding: '0.6em',
-    marginRight: '2em',
   },
   heading: {
     display: 'flex',

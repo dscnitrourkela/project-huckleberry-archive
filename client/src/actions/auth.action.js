@@ -13,6 +13,7 @@ export const logout = () => (dispatch) => {
 
 export const setBadgesToken = (token) => async (dispatch) => {
   try {
+    console.log(process.env.REACT_APP_CLIENT_ID);
     const {
       data: { access_token },
     } = await axios.post(API.BADGES.CONVERT_TOKEN, {

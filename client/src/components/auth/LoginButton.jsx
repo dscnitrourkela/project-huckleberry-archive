@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/core/styles';
 // Redux
 import { connect } from 'react-redux';
 import { logout, setBadgesToken, login } from '../../actions/auth.action';
-import { onSignInBadge } from '../../actions/badges.action';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
@@ -20,7 +19,6 @@ const mapActionsToProps = {
   logout,
   setBadgesToken,
   login,
-  onSignInBadge,
 };
 
 function LoginButton({ logout, login, setBadgesToken, user }) {

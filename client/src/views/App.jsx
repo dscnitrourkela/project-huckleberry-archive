@@ -11,21 +11,20 @@ import Sidebar from '../components/marginals/Sidebar';
 
 // Redux
 import { connect } from 'react-redux';
-import { login, setBadgesToken } from '../actions/auth.action';
+import { login, logout } from '../actions/auth.action';
 
 const mapActionsToProps = {
   login,
-  setBadgesToken,
+  logout,
 };
 
-function App({ login, setBadgesToken }) {
+function App({ login, logout }) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         login(user);
-        setBadgesToken(localStorage.getItem('access_token'));
       } else {
-        console.log('no user');
+        logout();
       }
     });
   }, []);

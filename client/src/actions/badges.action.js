@@ -23,7 +23,10 @@ export const countDownBadge = (uuid) => async (dispatch) => {
     const { data } = await axios.post(API.BADGES.SESSIONS, { track: 1 }, config);
 
     if (data) {
-      const { data: badges } = await axios.get(`${API.BADGES.PROFILE}${uuid}`);
+      const {
+        data: { badges },
+      } = await axios.get(`${API.BADGES.PROFILE}${uuid}`);
+
       if (badges) {
         dispatch({ type: BADGES.FETCH, payload: badges });
       }
