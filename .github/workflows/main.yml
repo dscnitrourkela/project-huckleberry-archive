@@ -16,7 +16,7 @@ jobs:
                   node-version: '10.x'
               env:
                   REACT_APP_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-            - run: cd ./client
+            - run: echo ${{ secrets.CLIENT_ID }} > ./client/.env            
             - run: cd client && npm ci
             - run: cd client && npm run build
             - uses: w9jds/firebase-action@master
