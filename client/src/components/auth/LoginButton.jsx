@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
+// Firebase
+import firebase, { provider } from '../../firebase';
+
+// Libraries
 import { Button } from '@material-ui/core';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
+// Redux
+import { connect } from 'react-redux';
 import { logout, setBadgesToken, login } from '../../actions/auth.action';
-import firebase from '../../firebase';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  uuid: state.auth.uuid,
 });
 
 const mapActionsToProps = {
@@ -17,13 +21,11 @@ const mapActionsToProps = {
   login,
 };
 
-function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
+function LoginButton({ logout, login, setBadgesToken, user }) {
   const classes = useStyles();
-  let provider;
 
   const onLoginClick = async () => {
     try {
-      provider = new firebase.auth.GoogleAuthProvider();
       const result = await firebase.auth().signInWithPopup(provider);
       if (result.credential) {
         const {
@@ -47,7 +49,7 @@ function LoginButton({ logout, uuid, login, setBadgesToken, user }) {
   };
 
   const renderLoginButton = () => {
-    switch (localStorage.getItem('uuid')) {
+    switch (user) {
       case undefined:
         return <h1>Loading...</h1>;
       case null:

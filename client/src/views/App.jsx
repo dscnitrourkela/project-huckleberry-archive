@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
+// Firebase
 import firebase from '../firebase';
 
 // Components
@@ -10,30 +11,34 @@ import Sidebar from '../components/marginals/Sidebar';
 
 // Redux
 import { connect } from 'react-redux';
-import { login, setBadgesToken } from '../actions/auth.action';
-import { onSignInBadge } from '../actions/badges.action';
-
-const mapStateToProps = (state) => ({
-  uuid: state.auth.uuid,
-});
+import { login, logout } from '../actions/auth.action';
 
 const mapActionsToProps = {
   login,
-  setBadgesToken,
-  onSignInBadge,
+  logout,
 };
 
-function App({ uuid }) {
+function App({ login, logout }) {
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        login(user);
+      } else {
+        logout();
+      }
+    });
+  }, []);
+
   const renderRoutes = () => (
     <Switch>
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {(
+      {
         <Route path={`/profile`}>
           <Profile />
         </Route>
-      )}
+      }
       <Redirect to={`/livestream`} />
     </Switch>
   );
@@ -45,4 +50,4 @@ function App({ uuid }) {
   );
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(App);
+export default connect(null, mapActionsToProps)(App);

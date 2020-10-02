@@ -1,22 +1,27 @@
-# This is a basic workflow to help you get started with Actions
+name: Firebase Deploy
 
-name: CI
 on:
-  push:
-    branches: [ release ]
-
+    push:
+        branches:
+            - release
 
 jobs:
-  firebase-deploy:
-    runs-on: ubuntu-latest
-    steps:      
-      - name: Checkout the repository
-        uses: actions/checkout@master
-      
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting:livestream
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: ./client
+    firebase-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@master
+            - uses: actions/setup-node@master
+              with:
+                  node-version: '10.x'
+              env:
+                  REACT_APP_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+            - run: cd ./client
+            - run: cd client && npm ci
+            - run: cd client && npm run build
+            - uses: w9jds/firebase-action@master
+              with:
+                  args: deploy --only hosting:livestream
+              env:
+                  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+                  PROJECT_PATH: ./client

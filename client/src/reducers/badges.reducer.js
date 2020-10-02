@@ -1,6 +1,9 @@
 import { BADGES } from '../actions/types';
 
-const initialState = {};
+const initialState = {
+  badges: [],
+  firstLoad: true,
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
