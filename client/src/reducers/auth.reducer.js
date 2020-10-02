@@ -1,6 +1,9 @@
 import { AUTH } from '../actions/types';
 
-const initialState = {};
+const initialState = {
+  user: null,
+  uuid: null,
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {

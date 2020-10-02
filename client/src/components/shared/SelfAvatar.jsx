@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 const SelfAvatar = ({ alt, user }) => {
   const classes = useStyles();
 
-  switch (localStorage.getItem('displayName')) {
+  switch (user) {
     case undefined:
       return <h3>Loading...</h3>;
     case null:
@@ -19,9 +19,9 @@ const SelfAvatar = ({ alt, user }) => {
       return (
         <div className={classes.avatarContainer}>
           <Typography variant='h3' className={classes.typography}>
-            {localStorage.getItem('displayName') || user.displayName}
+            {user.displayName}
           </Typography>
-          <Avatar alt={alt} src={localStorage.getItem('photoURL') || user.photoURL} className={classes.large} />
+          <Avatar alt={alt} src={user.photoURL} className={classes.large} />
         </div>
       );
   }

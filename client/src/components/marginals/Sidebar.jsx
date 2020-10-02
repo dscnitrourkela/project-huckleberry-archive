@@ -92,9 +92,7 @@ function ResponsiveDrawer(props) {
         style={{ position: 'absolute', bottom: 20, marginLeft: 10, color: '#757575' }}
         align='center'>
         Made with <FavoriteIcon color='error' style={{ padding: 0, margin: 0, paddingTop: 10 }} /> by{' '}
-        <a href='https://twitter.com/kautukkundan'>
-          Kautuk
-        </a>
+        <a href='https://twitter.com/kautukkundan'>Kautuk</a>
       </Typography>
     </div>
   );
@@ -130,7 +128,7 @@ function ResponsiveDrawer(props) {
       </AppBar>
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation='css'>
+        <Hidden xsUp implementation='css'>
           <Drawer
             container={container}
             variant='temporary'
