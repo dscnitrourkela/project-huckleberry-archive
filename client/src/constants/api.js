@@ -5,4 +5,8 @@ export const API = {
     GRANT: 'https://badges.dscnitrourkela.tech/api/badges',
     PROFILE: 'https://badges.dscnitrourkela.tech/api/badges/collection/',
   },
+  LIVESTREAM: {
+    SLIDO: 'https://app.sli.do/event/cdqyh0vx',
+    TWITCH: 'https://www.twitch.tv/dscnitrourkela',
+  },
 };

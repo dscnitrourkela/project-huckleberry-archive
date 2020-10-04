@@ -27,8 +27,6 @@ function Counter({ user, countDownBadge }) {
     </span>
   );
 
-  console.log(key);
-
   const onCounterComplete = () => {
     if (user) {
       // countDownBadge(localStorage.getItem('uuid'));
@@ -39,7 +37,7 @@ function Counter({ user, countDownBadge }) {
   return (
     <Countdown
       key={key}
-      date={Date.now() + 10000}
+      date={Date.now() + 900000}
       style={{ margin: '1em' }}
       renderer={renderer}
       onComplete={onCounterComplete}
