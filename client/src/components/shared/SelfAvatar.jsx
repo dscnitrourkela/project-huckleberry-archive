@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Typography } from '@material-ui/core';
+import { Typography, Card, CardActionArea, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
@@ -7,8 +7,10 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-const SelfAvatar = ({ alt, user }) => {
+const SelfAvatar = ({ user }) => {
   const classes = useStyles();
+
+  console.log(user);
 
   switch (user) {
     case undefined:
@@ -17,12 +19,19 @@ const SelfAvatar = ({ alt, user }) => {
       return <h3>User not logged in</h3>;
     default:
       return (
-        <div className={classes.avatarContainer}>
-          <Typography variant='h3' className={classes.typography}>
-            {user.displayName}
-          </Typography>
-          <Avatar alt={alt} src={user.photoURL} className={classes.large} />
-        </div>
+        <Card className={classes.root} variant='outlined'>
+          <CardActionArea>
+            <CardMedia component='img' alt='Profile Image' height='auto' image={user.photoURL} title='Profile Image' />
+            <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+              <Typography gutterBottom variant='h5' className={classes.typography}>
+                {user.displayName}
+              </Typography>
+              <Typography variant='body2' color='textSecondary' className={classes.typography}>
+                Email: {user.email}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
       );
   }
 };
@@ -30,21 +39,8 @@ const SelfAvatar = ({ alt, user }) => {
 export default connect(mapStateToProps)(SelfAvatar);
 
 const useStyles = makeStyles((theme) => ({
-  avatarContainer: {
-    marginTop: '1em',
-    marginBottom: '3em',
-    width: '100%',
-    minHeight: '3em',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '1.5em 0',
-  },
-  large: {
-    width: theme.spacing(35),
-    height: theme.spacing(35),
-    marginBottom: '0.5em',
+  root: {
+    maxWidth: 345,
   },
   typography: {
     fontFamily: '"Open Sans", sans-serif',

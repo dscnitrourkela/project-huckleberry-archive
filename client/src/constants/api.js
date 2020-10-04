@@ -9,4 +9,7 @@ export const API = {
     SLIDO: 'https://app.sli.do/event/cdqyh0vx',
     TWITCH: 'https://www.twitch.tv/dscnitrourkela',
   },
+  OAUTH: {
+    URL: 'https://www.googleapis.com/plus/v1/people/me?access_token=',
+  },
 };

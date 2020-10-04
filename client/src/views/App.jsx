@@ -18,7 +18,11 @@ const mapActionsToProps = {
   logout,
 };
 
-function App({ login, logout }) {
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+
+function App({ login, logout, user }) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -34,11 +38,14 @@ function App({ login, logout }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {
-        <Route path={`/profile`}>
-          <Profile />
-        </Route>
-      }
+
+      <Route path={`/profile`}>
+        <Profile />
+      </Route>
+
+      <Route path={`/profile/share/:id`}>
+        <Profile />
+      </Route>
       <Redirect to={`/livestream`} />
     </Switch>
   );
@@ -50,4 +57,4 @@ function App({ login, logout }) {
   );
 }
 
-export default connect(null, mapActionsToProps)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);

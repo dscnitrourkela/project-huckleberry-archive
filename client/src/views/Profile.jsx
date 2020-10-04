@@ -35,24 +35,29 @@ function Profile({ profile, fetchUserBadges }) {
       return <h2>Loading...</h2>;
     default:
       return (
-        <div style={{ height: '70vh' }}>
-          <SelfAvatar alt='img' />
-          <Divider />
-          <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+        <div className={classes.container}>
+          <div className={classes.badgesContainer}>
             <Typography variant='h4' className={classes.typography}>
               Badges
             </Typography>
             {profile.length === 0 ? (
               <h3>No Badges Yet!</h3>
             ) : (
-              <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-                {profile.map((each, index) => (
-                  <Card image={each.image} name={each.name} key={index}>
-                    badge
-                  </Card>
+              <Container className={classes.badges}>
+                {profile.map((badge, index) => (
+                  <Card
+                    image={badge.image}
+                    name={badge.name.split('/')[0]}
+                    description={badge.name.split('/')[1]}
+                    key={index}
+                  />
                 ))}
               </Container>
             )}
+          </div>
+          <Divider orientation='vertical' />
+          <div>
+            <SelfAvatar alt='img' />
           </div>
         </div>
       );
@@ -62,6 +67,24 @@ function Profile({ profile, fetchUserBadges }) {
 export default connect(mapStateToProps, mapActionsToProps)(Profile);
 
 const useStyles = makeStyles(() => ({
+  container: {
+    height: '70vh',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  badgesContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: '60%',
+  },
+  badges: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
   typography: {
     width: 'auto',
     fontFamily: '"Open Sans", sans-serif',
