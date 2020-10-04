@@ -72,7 +72,9 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {localStorage.getItem('uuid') && (
-          <Link to={'/profile/' + localStorage.getItem('uuid')} className={classes.listItem}>
+          <Link
+            to={'/profile/' + localStorage.getItem('uuid') + '/' + localStorage.getItem('access_token')}
+            className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
                 <AccountCircle />

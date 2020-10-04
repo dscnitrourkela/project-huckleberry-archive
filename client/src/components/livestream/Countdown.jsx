@@ -33,11 +33,12 @@ function Counter({ user, countDownBadge }) {
       setKey((key) => key + 1);
     }
   };
+  console.log(key);
 
   return (
     <Countdown
       key={key}
-      date={Date.now() + 900000}
+      date={Date.now() + 10000}
       style={{ margin: '1em' }}
       renderer={renderer}
       onComplete={onCounterComplete}

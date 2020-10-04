@@ -8,9 +8,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '../components/shared/Card';
 import SelfAvatar from '../components/shared/SelfAvatar';
 
+// constants
+import { API } from '../constants/api';
+
 // Redux
 import { connect } from 'react-redux';
 import { fetchUserBadges } from '../actions/badges.action';
+import { login } from '../actions/auth.action';
+import axios from 'axios';
 
 const mapStateToProps = (state) => ({
   profile: state.badges.badges,
@@ -18,13 +23,15 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   fetchUserBadges,
+  login,
 };
 
-function Profile({ profile, fetchUserBadges }) {
+function Profile({ profile, fetchUserBadges, login }) {
   const classes = useStyles();
 
   useEffect(() => {
     const paramUuid = window.location.pathname.split('/')[2];
+    const accessToken = window.location.pathname.split('/')[3];
     if (paramUuid) {
       fetchUserBadges(paramUuid);
     }

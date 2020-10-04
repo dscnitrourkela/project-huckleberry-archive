@@ -10,19 +10,18 @@ const mapStateToProps = (state) => ({
 const SelfAvatar = ({ user }) => {
   const classes = useStyles();
 
-  console.log(user);
-
   switch (user) {
     case undefined:
       return <h3>Loading...</h3>;
     case null:
       return <h3>User not logged in</h3>;
     default:
+      console.log(user.photoURL);
       return (
         <Card className={classes.root} variant='outlined'>
           <CardActionArea>
             <CardMedia component='img' alt='Profile Image' height='auto' image={user.photoURL} title='Profile Image' />
-            <CardContent style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+            <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant='h5' className={classes.typography}>
                 {user.displayName}
               </Typography>
@@ -45,5 +44,10 @@ const useStyles = makeStyles((theme) => ({
   typography: {
     fontFamily: '"Open Sans", sans-serif',
     marginBottom: '1em',
+  },
+  cardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
   },
 }));

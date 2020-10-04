@@ -49,15 +49,10 @@ function LiveStream({ user }) {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={9} lg={9} className={classes.heading}>
+        <Grid item xs={12} md={12} lg={12}>
           <Typography variant='h5' className={classes.headingTypography}>
-            Signin to get some exciting badges! Exclusive badge will be sent to you in{' '}
+            Signin to get some exciting badges! Exclusive badge will be sent to you in <Countdown />
           </Typography>
-          {<ArrowForwardIcon style={{ margin: 15, color: '#757575' }} />}
-        </Grid>
-
-        <Grid item xs={12} md={3} lg={3}>
-          <Countdown />
         </Grid>
       </Grid>
     </div>
@@ -90,11 +85,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     borderRadius: '0.5em',
-  },
-  heading: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   headingTypography: {
     marginTop: 10,
