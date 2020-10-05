@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 
-// Firebase
-import firebase from '../firebase';
+// Helpers
+import firebase from '../helpers/firebase';
+import createBrowserHistory from '../helpers/history';
 
 // Components
 import LiveStream from './LiveStream';
@@ -22,8 +23,10 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
+// Main component
 function App({ login, logout, user }) {
   useEffect(() => {
+    // Add listener as soon as the app is loaded.
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         login(user);
@@ -38,11 +41,9 @@ function App({ login, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-
       <Route path={`/profile`}>
         <Profile />
       </Route>
-
       <Route path={`/profile/share/:id`}>
         <Profile />
       </Route>
@@ -51,9 +52,9 @@ function App({ login, logout, user }) {
   );
 
   return (
-    <BrowserRouter>
+    <Router history={createBrowserHistory}>
       <Sidebar>{renderRoutes()}</Sidebar>
-    </BrowserRouter>
+    </Router>
   );
 }
 

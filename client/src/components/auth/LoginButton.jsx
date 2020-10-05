@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Firebase
-import firebase, { provider } from '../../firebase';
+import firebase, { provider } from '../../helpers/firebase';
 
 // Libraries
 import { Button } from '@material-ui/core';
