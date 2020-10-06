@@ -27,14 +27,13 @@ function Counter({ user, countDownBadge }) {
     </span>
   );
 
-  console.log(key);
-
   const onCounterComplete = () => {
     if (user) {
-      // countDownBadge(localStorage.getItem('uuid'));
+      countDownBadge(localStorage.getItem('uuid'));
       setKey((key) => key + 1);
     }
   };
+  console.log(key);
 
   return (
     <Countdown

@@ -3,14 +3,12 @@ import React from 'react';
 // Material-ui
 import { Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-
-// Libraries
-import { TwitchChat } from 'react-twitch-embed';
-import Timer from 'react-compound-timer';
 
 // Hooks
 import useWindowSize from '../hooks/useWindowSize';
+
+// Constants
+import { API } from '../constants/api';
 
 // Components
 import VideoPlayer from '../components/livestream/VideoPlayer';
@@ -34,25 +32,26 @@ function LiveStream({ user }) {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
           <Paper elevation={2} className={windowSize.width > 850 ? classes.videoplayer : classes.videoPlayerMobile}>
-            <VideoPlayer url='https://www.twitch.tv/dscnitrourkela' controls={true} width='100%' />
+            <VideoPlayer url={API.LIVESTREAM.TWITCH} controls={true} width='100%' />
           </Paper>
         </Grid>
 
         <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
           <Paper elevation={2} className={classes.chatContainer}>
-            <TwitchChat channel='dscnitrourkela' theme='dark' className={classes.chat} />
+            <iframe
+              src={API.LIVESTREAM.SLIDO}
+              height='100%'
+              width='100%'
+              frameBorder='0'
+              style={{ borderRadius: 10 }}
+            />
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={9} lg={9} className={classes.heading}>
+        <Grid item xs={12} md={12} lg={12}>
           <Typography variant='h5' className={classes.headingTypography}>
-            Signin to get some exciting badges! Exclusive badge will be sent to you in{' '}
+            Signin to get some exciting badges! Exclusive badge will be sent to you in <Countdown />
           </Typography>
-          {<ArrowForwardIcon style={{ margin: 15, color: '#757575' }} />}
-        </Grid>
-
-        <Grid item xs={12} md={3} lg={3}>
-          <Countdown />
         </Grid>
       </Grid>
     </div>
@@ -85,11 +84,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     borderRadius: '0.5em',
-  },
-  heading: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   headingTypography: {
     marginTop: 10,

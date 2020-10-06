@@ -1,5 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB1mDD2MLmghXbxZ4YSTK61KfYKrw2xAtQ',
@@ -11,9 +12,7 @@ const firebaseConfig = {
   appId: '1:120654780626:web:6bf2490f1eb56fc5da350b',
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+firebase.initializeApp(firebaseConfig);
 
 export const provider = new firebase.auth.GoogleAuthProvider();
 
