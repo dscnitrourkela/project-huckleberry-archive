@@ -70,34 +70,36 @@ function Profile({ profile, fetchUserBadges, fetchUser }) {
 
           <Grid item xs={12} md={12} lg={4} class={classes.profileContainer}>
             <SelfAvatar alt='img' />
-            <div style={{ display: 'flex', justifyContent: 'flex-start', margin: '1em', width: '100%' }}>
-              <CopyToClipboard text={window.location.href}>
-                <Button
-                  aria-describedby={id}
-                  className={classes.shareButton}
-                  onClick={(event) => {
-                    setAnchorEl(event.currentTarget);
-                    setTimeout(() => setAnchorEl(null), 500);
+            {localStorage.getItem('uuid') && (
+              <div style={{ display: 'flex', justifyContent: 'flex-start', margin: '1em', width: '100%' }}>
+                <CopyToClipboard text={window.location.href}>
+                  <Button
+                    aria-describedby={id}
+                    className={classes.shareButton}
+                    onClick={(event) => {
+                      setAnchorEl(event.currentTarget);
+                      setTimeout(() => setAnchorEl(null), 500);
+                    }}>
+                    Share Profile
+                  </Button>
+                </CopyToClipboard>
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={() => setAnchorEl(null)}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
                   }}>
-                  Share Profile
-                </Button>
-              </CopyToClipboard>
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={() => setAnchorEl(null)}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}>
-                <Typography className={classes.popover}>Profile url copied!</Typography>
-              </Popover>
-            </div>
+                  <Typography className={classes.popover}>Profile url copied!</Typography>
+                </Popover>
+              </div>
+            )}
           </Grid>
           {/* <Divider orientation='vertical' /> */}
         </Grid>

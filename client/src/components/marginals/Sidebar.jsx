@@ -124,7 +124,7 @@ function ResponsiveDrawer(props) {
                 DSC NIT Rourkela
               </Typography>
             </div>
-            {windowSize.width > 700 && <LoginButton />}
+            {windowSize.width > 700 && localStorage.getItem('uuid') && <LoginButton />}
           </div>
         </Toolbar>
       </AppBar>
