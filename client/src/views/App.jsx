@@ -4,7 +4,7 @@ import { Router, Switch, Route, Redirect } from 'react-router-dom';
 // Helpers
 import firebase from '../helpers/firebase';
 import createBrowserHistory from '../helpers/history';
-import { saveImage } from '../helpers/saveImage';
+import { saveImage } from '../helpers/uploadImage';
 
 // Components
 import LiveStream from './LiveStream';
@@ -13,10 +13,10 @@ import Sidebar from '../components/marginals/Sidebar';
 
 // Redux
 import { connect } from 'react-redux';
-import { login, logout } from '../actions/auth.action';
+import { fetchUser, logout } from '../actions/auth.action';
 
 const mapActionsToProps = {
-  login,
+  fetchUser,
   logout,
 };
 
@@ -25,13 +25,12 @@ const mapStateToProps = (state) => ({
 });
 
 // Main component
-function App({ login, logout, user }) {
+function App({ fetchUser, logout, user }) {
   useEffect(() => {
     // Add listener as soon as the app is loaded.
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        login(user);
-        saveImage(user.photoURL);
+        fetchUser(user.uid);
       } else {
         logout();
       }

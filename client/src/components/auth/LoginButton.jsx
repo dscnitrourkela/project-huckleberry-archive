@@ -1,7 +1,8 @@
 import React from 'react';
 
-// Firebase
+// Helpers
 import firebase, { provider } from '../../helpers/firebase';
+import { uploadImage } from '../../helpers/uploadImage';
 
 // Libraries
 import { Button } from '@material-ui/core';
@@ -26,14 +27,16 @@ function LoginButton({ logout, login, setBadgesToken, user }) {
 
   const onLoginClick = async () => {
     try {
+      // Login with google oauth
       const result = await firebase.auth().signInWithPopup(provider);
       if (result.credential) {
         const {
-          user: { displayName, photoURL, email },
+          user: { displayName, photoURL, email, uid },
           credential: { accessToken },
         } = result;
-        await login({ displayName, photoURL, email });
-        await setBadgesToken(accessToken);
+
+        login(displayName, photoURL, email, uid);
+        setBadgesToken(accessToken);
       }
     } catch (error) {
       console.log(error.code, error.message);

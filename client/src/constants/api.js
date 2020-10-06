@@ -9,5 +9,7 @@ export const API = {
     SLIDO: 'https://app.sli.do/event/cdqyh0vx',
     TWITCH: 'https://www.twitch.tv/dscnitrourkela',
   },
-  CLOUDINARY: 'https://api.cloudinary.com/v1_1/dalqfvowk/image/upload',
+  CLOUDINARY: {
+    IMAGE_UPLOAD: 'https://api.cloudinary.com/v1_1/dalqfvowk/image/upload',
+  },
 };
