@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 // Libraries
-import { Typography, Divider, Container } from '@material-ui/core';
+import { Typography, Divider, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Components
@@ -25,36 +25,46 @@ function Profile({ profile, fetchUserBadges }) {
 
   useEffect(() => {
     const paramUuid = window.location.pathname.split('/')[2];
+    console.log(paramUuid);
     if (paramUuid) {
       fetchUserBadges(paramUuid);
     }
   }, []);
 
   switch (profile) {
-    case undefined:
+    case undefined || null:
       return <h2>Loading...</h2>;
     default:
       return (
-        <div style={{ height: '70vh' }}>
-          <SelfAvatar alt='img' />
-          <Divider />
-          <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+        <Grid container spacing={3} className={classes.container}>
+          <Grid item xs={12} md={12} lg={8} className={classes.badgesContainer}>
             <Typography variant='h4' className={classes.typography}>
               Badges
             </Typography>
+
             {profile.length === 0 ? (
-              <h3>No Badges Yet!</h3>
+              <div style={{ widht: '100%' }}>
+                <h3>No Badges Yet!</h3>
+              </div>
             ) : (
-              <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-                {profile.map((each, index) => (
-                  <Card image={each.image} name={each.name} key={index}>
-                    badge
-                  </Card>
+              <Container className={classes.badges}>
+                {profile.map((badge, index) => (
+                  <Card
+                    image={badge.image}
+                    name={badge.name.split('/')[0]}
+                    description={badge.name.split('/')[1]}
+                    key={index}
+                  />
                 ))}
               </Container>
             )}
-          </div>
-        </div>
+          </Grid>
+
+          <Grid item xs={12} md={12} lg={4} class={classes.profileContainer}>
+            <SelfAvatar alt='img' />
+          </Grid>
+          {/* <Divider orientation='vertical' /> */}
+        </Grid>
       );
   }
 }
@@ -62,10 +72,28 @@ function Profile({ profile, fetchUserBadges }) {
 export default connect(mapStateToProps, mapActionsToProps)(Profile);
 
 const useStyles = makeStyles(() => ({
+  container: {
+    minHeight: '90vh',
+  },
+  badgesContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  badges: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   typography: {
     width: 'auto',
     fontFamily: '"Open Sans", sans-serif',
     marginBottom: '1em',
-    textAlign: 'center',
+  },
+  profileContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginTop: '2em',
   },
 }));

@@ -18,9 +18,12 @@ export const fetchUserBadges = (uuid) => async (dispatch) => {
 
 export const countDownBadge = (uuid) => async (dispatch) => {
   try {
-    const config = { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } };
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` },
+      params: { track: 1 },
+    };
 
-    const { data } = await axios.post(API.BADGES.SESSIONS, { track: 1 }, config);
+    const { data } = await axios.post(API.BADGES.SESSIONS, null, config);
 
     if (data) {
       const {

@@ -13,7 +13,7 @@ module.exports = {
     new Dotenv(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-    })    
+    }),
   ],
   resolve: {
     modules: [__dirname, 'src', 'node_modules'],
