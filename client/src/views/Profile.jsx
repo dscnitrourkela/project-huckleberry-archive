@@ -12,6 +12,7 @@ import SelfAvatar from '../components/shared/SelfAvatar';
 // Redux
 import { connect } from 'react-redux';
 import { fetchUserBadges } from '../actions/badges.action';
+import { fetchUser } from '../actions/auth.action';
 
 const mapStateToProps = (state) => ({
   profile: state.badges.badges,
@@ -19,24 +20,22 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   fetchUserBadges,
+  fetchUser,
 };
 
-function Profile({ profile, fetchUserBadges }) {
+function Profile({ profile, fetchUserBadges, fetchUser }) {
   const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   useEffect(() => {
     const paramUuid = window.location.pathname.split('/')[2];
-    console.log(paramUuid);
+    const uid = window.location.pathname.split('/')[3];
     if (paramUuid) {
       fetchUserBadges(paramUuid);
+      fetchUser(uid);
     }
   }, []);
 

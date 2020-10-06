@@ -10,6 +10,7 @@ import { uploadImage } from '../helpers/uploadImage';
 
 // Login Action
 export const login = (displayName, photoURL, email, uid) => async (dispatch) => {
+  localStorage.setItem('uid', uid);
   try {
     const userRef = firebase.firestore().collection('users').doc(uid);
     const existingUser = await userRef.get();
@@ -22,8 +23,6 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
         email: email,
       };
       userRef.set(newUser);
-
-      // dispatch({ type: AUTH.LOGIN, payload: { ...newUser, uid } });
     }
   } catch (error) {
     console.log(error);
