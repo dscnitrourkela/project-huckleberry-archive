@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 // Libraries
-import { Typography, Divider, Container, Grid, Paper } from '@material-ui/core';
+import { Typography, Divider, Container, Grid, Button, Popover } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 // Components
 import Card from '../components/shared/Card';
@@ -22,6 +23,14 @@ const mapActionsToProps = {
 
 function Profile({ profile, fetchUserBadges }) {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   useEffect(() => {
     const paramUuid = window.location.pathname.split('/')[2];
@@ -62,6 +71,34 @@ function Profile({ profile, fetchUserBadges }) {
 
           <Grid item xs={12} md={12} lg={4} class={classes.profileContainer}>
             <SelfAvatar alt='img' />
+            <div style={{ display: 'flex', justifyContent: 'flex-start', margin: '1em', width: '100%' }}>
+              <CopyToClipboard text={window.location.href}>
+                <Button
+                  aria-describedby={id}
+                  className={classes.shareButton}
+                  onClick={(event) => {
+                    setAnchorEl(event.currentTarget);
+                    setTimeout(() => setAnchorEl(null), 500);
+                  }}>
+                  Share Profile
+                </Button>
+              </CopyToClipboard>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={() => setAnchorEl(null)}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}>
+                <Typography className={classes.popover}>Profile url copied!</Typography>
+              </Popover>
+            </div>
           </Grid>
           {/* <Divider orientation='vertical' /> */}
         </Grid>
@@ -92,8 +129,22 @@ const useStyles = makeStyles(() => ({
   },
   profileContainer: {
     display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     marginTop: '2em',
+  },
+  shareButton: {
+    backgroundColor: '#fff',
+    border: '2px solid #0F9D58',
+    color: '#0F9D58',
+    fontWeight: 500,
+    borderRadius: '0.2em',
+    fontSize: '1.2em',
+    padding: '0.5em',
+    margin: '0.5em',
+  },
+  popover: {
+    padding: '0.5em',
   },
 }));
