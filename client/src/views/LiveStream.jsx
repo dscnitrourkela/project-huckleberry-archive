@@ -3,7 +3,6 @@ import React from 'react';
 // Material-ui
 import { Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 // Hooks
 import useWindowSize from '../hooks/useWindowSize';

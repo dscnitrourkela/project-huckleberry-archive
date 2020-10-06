@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 
 // Helpers
 import firebase from '../helpers/firebase';
 import createBrowserHistory from '../helpers/history';
-import { saveImage } from '../helpers/uploadImage';
 
 // Components
 import LiveStream from './LiveStream';
@@ -42,17 +41,19 @@ function App({ fetchUser, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      <Route path={`/profile`}>
-        <Profile />
-      </Route>
+      {localStorage.getItem('uuid') && (
+        <Route path={`/profile`}>
+          <Profile />
+        </Route>
+      )}
       <Redirect to={`/livestream`} />
     </Switch>
   );
 
   return (
-    <Router history={createBrowserHistory}>
+    <BrowserRouter history={createBrowserHistory}>
       <Sidebar>{renderRoutes()}</Sidebar>
-    </Router>
+    </BrowserRouter>
   );
 }
 

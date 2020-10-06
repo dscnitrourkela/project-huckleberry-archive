@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 // Libraries
-import { Typography, Divider, Container } from '@material-ui/core';
+import { Typography, Divider, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Components
 import Card from '../components/shared/Card';
 import SelfAvatar from '../components/shared/SelfAvatar';
 
-// constants
-import { API } from '../constants/api';
-
 // Redux
 import { connect } from 'react-redux';
 import { fetchUserBadges } from '../actions/badges.action';
-import { login } from '../actions/auth.action';
-import axios from 'axios';
 
 const mapStateToProps = (state) => ({
   profile: state.badges.badges,
@@ -23,10 +18,9 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   fetchUserBadges,
-  login,
 };
 
-function Profile({ profile, fetchUserBadges, login }) {
+function Profile({ profile, fetchUserBadges }) {
   const classes = useStyles();
 
   useEffect(() => {
@@ -42,8 +36,8 @@ function Profile({ profile, fetchUserBadges, login }) {
       return <h2>Loading...</h2>;
     default:
       return (
-        <div className={classes.container}>
-          <div className={classes.badgesContainer}>
+        <Grid container spacing={3} className={classes.container}>
+          <Grid item xs={12} md={12} lg={8} className={classes.badgesContainer}>
             <Typography variant='h4' className={classes.typography}>
               Badges
             </Typography>
@@ -61,12 +55,12 @@ function Profile({ profile, fetchUserBadges, login }) {
                 ))}
               </Container>
             )}
-          </div>
-          <Divider orientation='vertical' />
-          <div>
+            <Divider orientation='vertical' />
+          </Grid>
+          <Grid item xs={12} md={12} lg={4}>
             <SelfAvatar alt='img' />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       );
   }
 }
@@ -75,10 +69,11 @@ export default connect(mapStateToProps, mapActionsToProps)(Profile);
 
 const useStyles = makeStyles(() => ({
   container: {
-    height: '70vh',
+    minHeight: '90vh',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: 'blue',
   },
   badgesContainer: {
     display: 'flex',
