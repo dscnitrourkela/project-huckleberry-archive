@@ -42,12 +42,7 @@ function App({ fetchUser, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {user && (
-        <Route path={`/profile`}>
-          <Profile />
-        </Route>
-      )}
-      <Route path={`/profile/share/:id`}>
+      <Route path={`/profile`}>
         <Profile />
       </Route>
       <Redirect to={`/livestream`} />

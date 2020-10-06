@@ -31,14 +31,14 @@ function Profile({ profile, fetchUserBadges, login }) {
 
   useEffect(() => {
     const paramUuid = window.location.pathname.split('/')[2];
-    const accessToken = window.location.pathname.split('/')[3];
+    console.log(paramUuid);
     if (paramUuid) {
       fetchUserBadges(paramUuid);
     }
   }, []);
 
   switch (profile) {
-    case undefined:
+    case undefined || null:
       return <h2>Loading...</h2>;
     default:
       return (

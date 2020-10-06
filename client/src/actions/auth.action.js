@@ -23,7 +23,7 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
       };
       userRef.set(newUser);
 
-      dispatch({ type: AUTH.LOGIN, payload: { ...newUser, uid } });
+      // dispatch({ type: AUTH.LOGIN, payload: { ...newUser, uid } });
     }
   } catch (error) {
     console.log(error);

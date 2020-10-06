@@ -16,7 +16,6 @@ const SelfAvatar = ({ user }) => {
     case null:
       return <h3>User not logged in</h3>;
     default:
-      console.log(user.photoURL);
       return (
         <Card className={classes.root} variant='outlined'>
           <CardActionArea>
