@@ -41,8 +41,11 @@ function Profile({ profile, fetchUserBadges }) {
             <Typography variant='h4' className={classes.typography}>
               Badges
             </Typography>
+
             {profile.length === 0 ? (
-              <h3>No Badges Yet!</h3>
+              <div style={{ widht: '100%' }}>
+                <h3>No Badges Yet!</h3>
+              </div>
             ) : (
               <Container className={classes.badges}>
                 {profile.map((badge, index) => (
@@ -55,11 +58,12 @@ function Profile({ profile, fetchUserBadges }) {
                 ))}
               </Container>
             )}
-            <Divider orientation='vertical' />
           </Grid>
-          <Grid item xs={12} md={12} lg={4}>
+
+          <Grid item xs={12} md={12} lg={4} class={classes.profileContainer}>
             <SelfAvatar alt='img' />
           </Grid>
+          {/* <Divider orientation='vertical' /> */}
         </Grid>
       );
   }
@@ -70,27 +74,26 @@ export default connect(mapStateToProps, mapActionsToProps)(Profile);
 const useStyles = makeStyles(() => ({
   container: {
     minHeight: '90vh',
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'blue',
   },
   badgesContainer: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'column',
-    width: '60%',
   },
   badges: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     flexWrap: 'wrap',
   },
   typography: {
     width: 'auto',
     fontFamily: '"Open Sans", sans-serif',
     marginBottom: '1em',
-    textAlign: 'center',
+  },
+  profileContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    marginTop: '2em',
   },
 }));
