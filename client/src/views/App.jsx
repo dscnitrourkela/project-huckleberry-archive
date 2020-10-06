@@ -41,11 +41,9 @@ function App({ fetchUser, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      {localStorage.getItem('uuid') && (
-        <Route path={`/profile`}>
-          <Profile />
-        </Route>
-      )}
+      <Route path={`/profile`}>
+        <Profile />
+      </Route>
       <Redirect to={`/livestream`} />
     </Switch>
   );

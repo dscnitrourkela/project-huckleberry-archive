@@ -72,7 +72,9 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {localStorage.getItem('uuid') && (
-          <Link to={'/profile/' + localStorage.getItem('uuid')} className={classes.listItem}>
+          <Link
+            to={'/profile/' + localStorage.getItem('uuid') + '/' + localStorage.getItem('uid')}
+            className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
                 <AccountCircle />
@@ -122,7 +124,7 @@ function ResponsiveDrawer(props) {
                 DSC NIT Rourkela
               </Typography>
             </div>
-            {windowSize.width > 700 && <LoginButton />}
+            {windowSize.width > 700 && localStorage.getItem('uuid') && <LoginButton />}
           </div>
         </Toolbar>
       </AppBar>
