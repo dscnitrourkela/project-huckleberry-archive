@@ -4,6 +4,7 @@ import { Router, Switch, Route, Redirect } from 'react-router-dom';
 // Helpers
 import firebase from '../helpers/firebase';
 import createBrowserHistory from '../helpers/history';
+import { saveImage } from '../helpers/saveImage';
 
 // Components
 import LiveStream from './LiveStream';
@@ -30,6 +31,7 @@ function App({ login, logout, user }) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         login(user);
+        saveImage(user.photoURL);
       } else {
         logout();
       }
@@ -41,9 +43,11 @@ function App({ login, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      <Route path={`/profile`}>
-        <Profile />
-      </Route>
+      {user && (
+        <Route path={`/profile`}>
+          <Profile />
+        </Route>
+      )}
       <Route path={`/profile/share/:id`}>
         <Profile />
       </Route>
