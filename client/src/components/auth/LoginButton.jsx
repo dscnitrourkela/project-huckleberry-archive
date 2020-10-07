@@ -14,6 +14,7 @@ import { logout, setBadgesToken, login } from '../../actions/auth.action';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  profile_status: state.auth.profile_status,
 });
 
 const mapActionsToProps = {
@@ -22,7 +23,7 @@ const mapActionsToProps = {
   login,
 };
 
-function LoginButton({ logout, login, setBadgesToken, user }) {
+function LoginButton({ logout, login, setBadgesToken, user, profile_status }) {
   const classes = useStyles();
 
   const onLoginClick = async () => {
@@ -52,6 +53,13 @@ function LoginButton({ logout, login, setBadgesToken, user }) {
   };
 
   const renderLoginButton = () => {
+    if (profile_status === 'shared') {
+      return (
+        <Button className={classes.button} color='primary' onClick={onLoginClick}>
+          Sign in
+        </Button>
+      );
+    }
     switch (user) {
       case undefined:
         return <h1>Loading...</h1>;

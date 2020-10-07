@@ -10,7 +10,6 @@ import { uploadImage } from '../helpers/uploadImage';
 
 // Login Action
 export const login = (displayName, photoURL, email, uid) => async (dispatch) => {
-
   localStorage.setItem('uid', uid);
 
   try {
@@ -87,4 +86,8 @@ export const setBadgesToken = (token) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const setProfileStatus = (status) => (dispatch) => {
+  dispatch({ type: AUTH.PROFILE_STATUS, payload: status });
 };
