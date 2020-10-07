@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 // Libraries
+
 import { Typography, Divider, Container, Grid, Button, Popover } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -70,6 +72,7 @@ function Profile({ profile, fetchUserBadges, fetchUser }) {
 
           <Grid item xs={12} md={12} lg={4} class={classes.profileContainer}>
             <SelfAvatar alt='img' />
+
             {localStorage.getItem('uuid') && (
               <div style={{ display: 'flex', justifyContent: 'flex-start', margin: '1em', width: '100%' }}>
                 <CopyToClipboard text={window.location.href}>
@@ -100,6 +103,7 @@ function Profile({ profile, fetchUserBadges, fetchUser }) {
                 </Popover>
               </div>
             )}
+
           </Grid>
           {/* <Divider orientation='vertical' /> */}
         </Grid>

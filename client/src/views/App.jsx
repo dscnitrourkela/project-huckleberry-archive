@@ -41,9 +41,11 @@ function App({ fetchUser, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
+
       <Route path={`/profile`}>
         <Profile />
       </Route>
+      
       <Redirect to={`/livestream`} />
     </Switch>
   );

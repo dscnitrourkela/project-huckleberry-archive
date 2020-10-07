@@ -19,6 +19,7 @@ export const fetchUserBadges = (uuid) => async (dispatch) => {
 export const countDownBadge = (uuid) => async (dispatch) => {
   try {
     const config = {
+
       headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }      
     };
 
