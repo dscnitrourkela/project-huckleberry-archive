@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Redux
 import { connect } from 'react-redux';
-import { logout, setBadgesToken, login } from '../../actions/auth.action';
+import { logout, setBadgesToken, login, setProfileStatus } from '../../actions/auth.action';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
@@ -21,9 +21,10 @@ const mapActionsToProps = {
   logout,
   setBadgesToken,
   login,
+  setProfileStatus,
 };
 
-function LoginButton({ logout, login, setBadgesToken, user, profile_status }) {
+function LoginButton({ logout, login, setBadgesToken, user, profile_status, setProfileStatus }) {
   const classes = useStyles();
 
   const onLoginClick = async () => {
@@ -38,6 +39,7 @@ function LoginButton({ logout, login, setBadgesToken, user, profile_status }) {
 
         login(displayName, photoURL, email, uid);
         setBadgesToken(accessToken);
+        setProfileStatus('own');
       }
     } catch (error) {
       console.log(error.code, error.message);
