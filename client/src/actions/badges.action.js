@@ -20,10 +20,9 @@ export const countDownBadge = (uuid) => async (dispatch) => {
   try {
     const config = {
       headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` },
-      params: { track: 1 },
     };
 
-    const { data } = await axios.post(API.BADGES.SESSIONS, null, config);
+    const { data } = await axios.post(API.BADGES.SESSIONS, { track: 1 }, config);
 
     if (data) {
       const {

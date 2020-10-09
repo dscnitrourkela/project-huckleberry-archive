@@ -10,19 +10,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Redux
 import { connect } from 'react-redux';
-import { logout, setBadgesToken, login } from '../../actions/auth.action';
+import { logout, setBadgesToken, login, setProfileStatus } from '../../actions/auth.action';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  profile_status: state.auth.profile_status,
 });
 
 const mapActionsToProps = {
   logout,
   setBadgesToken,
   login,
+  setProfileStatus,
 };
 
-function LoginButton({ logout, login, setBadgesToken, user }) {
+function LoginButton({ logout, login, setBadgesToken, user, profile_status, setProfileStatus }) {
   const classes = useStyles();
 
   const onLoginClick = async () => {
@@ -37,6 +39,7 @@ function LoginButton({ logout, login, setBadgesToken, user }) {
 
         login(displayName, photoURL, email, uid);
         setBadgesToken(accessToken);
+        setProfileStatus('own');
       }
     } catch (error) {
       console.log(error.code, error.message);
@@ -52,6 +55,13 @@ function LoginButton({ logout, login, setBadgesToken, user }) {
   };
 
   const renderLoginButton = () => {
+    if (profile_status === 'shared') {
+      return (
+        <Button className={classes.button} color='primary' onClick={onLoginClick}>
+          Sign in
+        </Button>
+      );
+    }
     switch (user) {
       case undefined:
         return <h1>Loading...</h1>;
