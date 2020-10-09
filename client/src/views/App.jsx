@@ -12,24 +12,27 @@ import Sidebar from '../components/marginals/Sidebar';
 
 // Redux
 import { connect } from 'react-redux';
-import { fetchUser, logout } from '../actions/auth.action';
+import { fetchUser, logout, setProfileStatus } from '../actions/auth.action';
 
 const mapActionsToProps = {
   fetchUser,
   logout,
+  setProfileStatus,
 };
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  profile_status: state.auth.profile_status,
 });
 
 // Main component
-function App({ fetchUser, logout, user }) {
+function App({ fetchUser, logout, user, setProfileStatus, profile_status }) {
   useEffect(() => {
     // Add listener as soon as the app is loaded.
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         fetchUser(user.uid);
+        // setProfileStatus('own');
       } else {
         logout();
       }
@@ -41,9 +44,17 @@ function App({ fetchUser, logout, user }) {
       <Route path={`/livestream`} exact>
         <LiveStream />
       </Route>
-      <Route path={`/profile`}>
-        <Profile />
+
+      {localStorage.getItem('uuid') && (
+        <Route path={`/profile/:id/:id/own`} exact>
+        <Profile profileStatus='own' />
       </Route>
+      )}
+
+      <Route path={`/profile/:id/:id/shared`} exact>
+        <Profile profileStatus='shared' />
+      </Route>
+
       <Redirect to={`/livestream`} />
     </Switch>
   );

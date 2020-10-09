@@ -11,6 +11,7 @@ import { uploadImage } from '../helpers/uploadImage';
 // Login Action
 export const login = (displayName, photoURL, email, uid) => async (dispatch) => {
   localStorage.setItem('uid', uid);
+
   try {
     const userRef = firebase.firestore().collection('users').doc(uid);
     const existingUser = await userRef.get();
@@ -24,6 +25,8 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
       };
       userRef.set(newUser);
     }
+    dispatch({ type: AUTH.PROFILE_STATUS, payload: 'own' });
+    
   } catch (error) {
     console.log(error);
   }
@@ -33,6 +36,7 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
 export const logout = () => (dispatch) => {
   localStorage.clear();
   dispatch({ type: AUTH.LOGOUT, payload: null });
+  dispatch({ type: AUTH.PROFILE_STATUS, payload: 'shared' });
 };
 
 // Fetch the existing user
@@ -85,4 +89,8 @@ export const setBadgesToken = (token) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const setProfileStatus = (status) => (dispatch) => {
+  dispatch({ type: AUTH.PROFILE_STATUS, payload: status });
 };

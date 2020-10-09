@@ -3,6 +3,7 @@ import { AUTH } from '../actions/types';
 const initialState = {
   user: null,
   uuid: null,
+  profile_status: 'shared',
 };
 
 export default (state = initialState, action) => {
@@ -22,6 +23,11 @@ export default (state = initialState, action) => {
         ...state,
         user: action.payload,
         uuid: null,
+      };
+    case AUTH.PROFILE_STATUS:
+      return {
+        ...state,
+        profile_status: action.payload,
       };
     default:
       return state;

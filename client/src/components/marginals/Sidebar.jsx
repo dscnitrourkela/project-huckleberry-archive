@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Libraries
 import { Link } from 'react-router-dom';
@@ -33,12 +33,15 @@ import { connect } from 'react-redux';
 import LoginButton from '../auth/LoginButton';
 import Logo from '../../static/DSC_Color_SQ.png';
 
-const mapStateToProps = (state) => ({ uuid: state.auth.uuid });
+const mapStateToProps = (state) => ({
+  uuid: state.auth.uuid,
+  profile_status: state.auth.profile_status,
+});
 
 const drawerWidth = 260;
 
 function ResponsiveDrawer(props) {
-  const { window, children, uuid } = props;
+  const { children, uuid, window, profile_status } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -71,9 +74,9 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider />
       <List>
-        {localStorage.getItem('uuid') && (
+        {profile_status === 'own' && (
           <Link
-            to={'/profile/' + localStorage.getItem('uuid') + '/' + localStorage.getItem('uid')}
+            to={`/profile/${localStorage.getItem('uuid')}/${localStorage.getItem('uid')}/own`}
             className={classes.listItem}>
             <ListItem button key='Profile'>
               <ListItemIcon>
@@ -84,17 +87,20 @@ function ResponsiveDrawer(props) {
           </Link>
         )}
       </List>
+
       {windowSize.width < 700 && (
         <List style={{ width: '100%', display: 'flex', justifyContent: 'center', paddingLeft: 30 }}>
           <LoginButton />
         </List>
       )}
+
       <Typography
         component='h6'
         style={{ position: 'absolute', bottom: 20, marginLeft: 10, color: '#757575' }}
         align='center'>
-        Made with <FavoriteIcon color='error' style={{ padding: 0, margin: 0, paddingTop: 10 }} /> by{' '}
-        <a href='https://twitter.com/kautukkundan'>Kautuk</a>
+        Made with {' '}
+        <a href='https://github.com/kautukkundan/omg-badges'>omg-badges</a> <br></br>
+        remixed by <a href='https://dscnitrourkela.tech'>DSC NIT Rourkela</a>
       </Typography>
     </div>
   );
@@ -124,10 +130,11 @@ function ResponsiveDrawer(props) {
                 DSC NIT Rourkela
               </Typography>
             </div>
-            {windowSize.width > 700 && localStorage.getItem('uuid') && <LoginButton />}
+            {windowSize.width > 700 && <LoginButton />}
           </div>
         </Toolbar>
       </AppBar>
+
       <nav className={windowSize.width > 700 ? classes.drawer : null} aria-label='mailbox folders'>
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden xsUp implementation='css'>
@@ -146,6 +153,7 @@ function ResponsiveDrawer(props) {
             {drawer}
           </Drawer>
         </Hidden>
+
         <Hidden xsDown implementation='css'>
           <Drawer
             classes={{
