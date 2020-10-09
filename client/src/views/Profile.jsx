@@ -63,8 +63,8 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
             </Typography>
 
             {profile.length === 0 ? (
-              <div style={{ widht: '100%' }}>
-                <h3>Loading</h3>
+              <div style={{ widht: '100%', height: '20em',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <HashLoader size={50} color='#DB4437' />
               </div>
             ) : (
               <Container className={classes.badges}>
