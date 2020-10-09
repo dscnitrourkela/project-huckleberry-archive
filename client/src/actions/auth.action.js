@@ -25,6 +25,8 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
       };
       userRef.set(newUser);
     }
+    dispatch({ type: AUTH.PROFILE_STATUS, payload: 'own' });
+    
   } catch (error) {
     console.log(error);
   }
@@ -34,6 +36,7 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
 export const logout = () => (dispatch) => {
   localStorage.clear();
   dispatch({ type: AUTH.LOGOUT, payload: null });
+  dispatch({ type: AUTH.PROFILE_STATUS, payload: 'shared' });
 };
 
 // Fetch the existing user

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 // Libraries
-
 import { Typography, Divider, Container, Grid, Button, Popover } from '@material-ui/core';
+import HashLoader from "react-spinners/HashLoader";
 
 import { makeStyles } from '@material-ui/core/styles';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -64,18 +64,22 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
 
             {profile.length === 0 ? (
               <div style={{ widht: '100%' }}>
-                <h3>No Badges Yet!</h3>
+                <h3>Loading</h3>
               </div>
             ) : (
               <Container className={classes.badges}>
-                {profile.map((badge, index) => (
-                  <Card
-                    image={badge.image}
-                    name={badge.name.split('/')[0]}
-                    description={badge.name.split('/')[1]}
-                    key={index}
-                  />
-                ))}
+                {profile.map((badge, index) => {
+                  console.log(badge.name)
+                  
+                  return (
+                    <Card
+                      image={badge.image}
+                      name={badge.name.split('/')[0]}
+                      description={badge.name.split('/')[1]}
+                      key={index}
+                    />
+                  )
+                })}
               </Container>
             )}
           </Grid>
