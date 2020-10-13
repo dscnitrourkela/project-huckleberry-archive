@@ -4,7 +4,7 @@ import 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyB1mDD2MLmghXbxZ4YSTK61KfYKrw2xAtQ',
-  authDomain: 'project-banana-4822.firebaseapp.com',
+  authDomain: 'live.dscnitrourkela.tech',
   databaseURL: 'https://project-banana-4822.firebaseio.com',
   projectId: 'project-banana-4822',
   storageBucket: 'project-banana-4822.appspot.com',
