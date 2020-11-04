@@ -29,7 +29,7 @@ export default function MediaCard(props) {
   return (
     <Card className={classes.root} elevation={5}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={'https://badges.dscnitrourkela.tech' + props.image} />
+        <CardMedia className={classes.media} image={'https://badges.dscnitrourkela.org' + props.image} />
         <CardContent className={classes.content}>
           <Typography align='center' gutterBottom variant='h5' className={classes.typography}>
             {props.name}
