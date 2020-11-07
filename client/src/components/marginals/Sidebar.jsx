@@ -55,7 +55,7 @@ function ResponsiveDrawer(props) {
     <div className={classes.list}>
       <div className={classes.toolbar} />
       <List>
-        <a href='https://dscnitrourkela.tech' className={classes.listItem}>
+        <a href='https://dscnitrourkela.org' className={classes.listItem}>
           <ListItem button key='Home'>
             <ListItemIcon>
               <HomeIcon />
@@ -100,7 +100,7 @@ function ResponsiveDrawer(props) {
         align='center'>
         Made with {' '}
         <a href='https://github.com/kautukkundan/omg-badges'>omg-badges</a> <br></br>
-        remixed by <a href='https://dscnitrourkela.tech'>DSC NIT Rourkela</a>
+        remixed by <a href='https://dscnitrourkela.org'>DSC NIT Rourkela</a>
       </Typography>
     </div>
   );
