@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { fetchUserBadges } from '../actions/badges.action';
 import { fetchUser, setProfileStatus } from '../actions/auth.action';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   profile: state.badges.badges,
 });
 
@@ -63,7 +63,7 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
             </Typography>
 
             {profile.length === 0 ? (
-              <div style={{ widht: '100%', height: '20em',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <div style={{ widht: '100%', height: '20em', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <HashLoader size={50} color='#DB4437' />
               </div>
             ) : (
@@ -87,14 +87,27 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
           <Grid item xs={12} md={12} lg={4} className={classes.profileContainer}>
             <SelfAvatar alt='img' />
 
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '1em', width: '100%' }}>
+            {/* <div style={{ display: 'flex', justifyContent: 'center', margin: '1em', width: '100%' }}>
               <CopyToClipboard text={shareUrl}>
                 <Button
                   aria-describedby={id}
                   className={classes.shareButton}
-                  onClick={(event) => {
-                    setAnchorEl(event.currentTarget);
-                    setTimeout(() => setAnchorEl(null), 500);
+                  onClick={event => {
+                    if (navigator.share) {
+                      navigator.share({
+                        title: 'Checkout my awesome badge at DSC NIT Rourkela',
+                        text: 'Excited to share the latest badge from @dscnitrourkela I have earned for <> at <>. Earn yours at next event by #dscnitrourkela',
+                        url: shareUrl
+                      }).then(() => {
+                        console.log('Thanks for sharing!');
+                      })
+                      .catch(err => {
+                        console.log(`Couldn't share because of`, err.message);
+                      });
+                    } else {
+                      setAnchorEl(event.currentTarget);
+                      //setTimeout(() => setAnchorEl(null), 500);
+                    }                    
                   }}>
                   Share Profile
                 </Button>
@@ -112,9 +125,9 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
                   vertical: 'top',
                   horizontal: 'center',
                 }}>
-                <Typography className={classes.popover}>Profile url copied!</Typography>
+                {/* <Typography className={classes.popover}>Profile URL copied!</Typography> 
               </Popover>
-            </div>
+            </div> */}
           </Grid>
           {/* <Divider orientation='vertical' /> */}
         </Grid>
