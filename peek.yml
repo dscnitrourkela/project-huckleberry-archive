@@ -1,5 +1,5 @@
 version: 2
 main:
   type: static
-  path: /client
+  path: /client/dist
   spa: false
