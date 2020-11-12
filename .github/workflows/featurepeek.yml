@@ -1,0 +1,17 @@
+name: Build and ping FeaturePeek
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+            node-version: '10.x'
+        env:
+            REACT_APP_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      - run: echo ${{ secrets.CLIENT_ID }} > ./client/.env            
+      - run: cd client && npm ci
+      - run: cd client && npm run build
+      - name: Ping FeaturePeek
+        run: bash <(curl -s https://peek.run/ci)
