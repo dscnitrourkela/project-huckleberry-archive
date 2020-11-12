@@ -4,7 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # About App
-- The project repository of the livestream section of DSC NIT Rourkela
+- The project repository of the livestream section of DSC NIT Rourkela.
 
 
 ## Contributing 🎃
