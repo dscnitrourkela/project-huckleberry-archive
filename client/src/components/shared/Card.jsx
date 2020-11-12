@@ -105,14 +105,14 @@ export default function MediaCard(props) {
               }}>
               <EmailShareButton
               subject='Checkout my awesome badge at DSC NIT Rourkela'
-              url={"https://fontawesome.com/how-to-use/on-the-web/using-with/react"}
+              url={shareUrl}
               body={`Excited to share the latest badge from @dscnitrourkela I have earned for ->> ${props.name} at ${props.description}. Earn yours at next event by #dscnitrourkela`}
               className={classes.socialMediaButton}>
                <EmailIcon size={36} />
             </EmailShareButton>
 
               <FacebookShareButton 
-              url={"https://fontawesome.com/how-to-use/on-the-web/using-with/react"}
+              url={shareUrl}
               quote={`Excited to share the latest badge from @dscnitrourkela I have earned for ->> ${props.name} at ${props.description}. Earn yours at next event by #dscnitrourkela`}
               hashtag="#dscnitrourkela"
               className={classes.socialMediaButton}>
@@ -121,7 +121,7 @@ export default function MediaCard(props) {
 
             <LinkedinShareButton
               title='Checkout my awesome badge at DSC NIT Rourkela'
-              url={"https://fontawesome.com/how-to-use/on-the-web/using-with/react"}
+              url={shareUrl}
               summary={`Excited to share the latest badge from @dscnitrourkela I have earned for ->> ${props.name} at ${props.description}. Earn yours at next event by #dscnitrourkela`}
               source='DSC NIT Rourkela'
               className={classes.socialMediaButton}>
@@ -129,13 +129,13 @@ export default function MediaCard(props) {
             </LinkedinShareButton>
             <TwitterShareButton
               hashtag="#dscnitrourkela"
-              url={"https://fontawesome.com/how-to-use/on-the-web/using-with/react"}
+              url={shareUrl}
               title={`Excited to share the latest badge from @dscnitrourkela I have earned for ->> ${props.name} at ${props.description}. Earn yours at next event by #dscnitrourkela`}
               className={classes.socialMediaButton}>
                <TwitterIcon size={36} />
             </TwitterShareButton>
             <WhatsappShareButton
-              url={"https://fontawesome.com/how-to-use/on-the-web/using-with/react"}
+              url={shareUrl}
               title={`Excited to share the latest badge from @dscnitrourkela I have earned for ->> ${props.name} at ${props.description}. Earn yours at next event by #dscnitrourkela`}
               className={classes.socialMediaButton}>
                <WhatsappIcon size={36} />
