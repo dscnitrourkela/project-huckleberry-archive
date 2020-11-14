@@ -10,8 +10,8 @@ jobs:
       with:
         node-version: 12.x
     - name: Install dependencies
-      run: yarn install
+      run: cd client && yarn install
     - name: Build
-      run: npm run build
+      run: cd client && npm run build
     - name: Ping FeaturePeek
       run: bash <(curl -s https://peek.run/ci)
