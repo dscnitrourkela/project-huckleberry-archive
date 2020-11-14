@@ -29,7 +29,6 @@ NOTE 1: Please abide by the [Contributing Guidelines](https://github.com/dscnitr
 NOTE 2: Please abide by the [Code of Conduct](https://github.com/dscnitrourkela/project-huckleberry/blob/master/CODE_OF_CONDUCT.md).
 
 
-## Starware
 
 dscnitrourkela/project-avocado is Starware.  
 This means you're free to use the project, as long as you star its GitHub repository.  
