@@ -47,8 +47,8 @@ function App({ fetchUser, logout, user, setProfileStatus, profile_status }) {
 
       {localStorage.getItem('uuid') && (
         <Route path={`/profile/:id/:id/own`} exact>
-        <Profile profileStatus='own' />
-      </Route>
+          <Profile profileStatus='own' />
+        </Route>
       )}
 
       <Route path={`/profile/:id/:id/shared`} exact>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // Libraries
 import { Typography, Divider, Container, Grid, Button, Popover } from '@material-ui/core';
-import HashLoader from "react-spinners/HashLoader";
+import HashLoader from 'react-spinners/HashLoader';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { fetchUserBadges } from '../actions/badges.action';
 import { fetchUser, setProfileStatus } from '../actions/auth.action';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.badges.badges,
 });
 
@@ -63,14 +63,21 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
             </Typography>
 
             {profile.length === 0 ? (
-              <div style={{ widht: '100%', height: '20em', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+              <div
+                style={{
+                  widht: '100%',
+                  height: '20em',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
                 <HashLoader size={50} color='#DB4437' />
               </div>
             ) : (
               <Container className={classes.badges}>
                 {profile.map((badge, index) => {
-                  console.log(badge.name)
-                  
+                  console.log(badge.name);
+
                   return (
                     <Card
                       image={badge.image}
@@ -78,7 +85,7 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
                       description={badge.name.split('/')[1]}
                       key={index}
                     />
-                  )
+                  );
                 })}
               </Container>
             )}
