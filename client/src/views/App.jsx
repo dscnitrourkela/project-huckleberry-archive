@@ -55,7 +55,7 @@ function App({ fetchUser, logout, user, setProfileStatus, profile_status }) {
         <Profile profileStatus='shared' />
       </Route>
 
-      <Redirect to={`/livestream`} />
+      {/* <Redirect to={`/livestream`} /> */}
     </Switch>
   );
 

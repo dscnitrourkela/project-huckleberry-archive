@@ -14,6 +14,9 @@ import { API } from '../constants/api';
 import VideoPlayer from '../components/livestream/VideoPlayer';
 import Countdown from '../components/livestream/Countdown';
 
+import GetVerifiedButton from '../components/auth/GitHub Auth/GetVerifiedButton'
+
+
 // Redux
 import { connect } from 'react-redux';
 
@@ -24,6 +27,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = {};
 
 function LiveStream({ user }) {
+
   const classes = useStyles();
   const windowSize = useWindowSize();
 
@@ -54,6 +58,7 @@ function LiveStream({ user }) {
           </Typography>
         </Grid>
       </Grid>
+      <GetVerifiedButton />
     </div>
   );
 }
