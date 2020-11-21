@@ -15,6 +15,7 @@ import VideoPlayer from '../components/livestream/VideoPlayer';
 import Countdown from '../components/livestream/Countdown';
 
 import GetVerifiedButton from '../components/auth/GitHub Auth/GetVerifiedButton'
+import Auth0Profile from '../components/auth/GitHub Auth/Profile'
 
 
 // Redux
@@ -59,6 +60,7 @@ function LiveStream({ user }) {
         </Grid>
       </Grid>
       <GetVerifiedButton />
+      <Auth0Profile />
     </div>
   );
 }
