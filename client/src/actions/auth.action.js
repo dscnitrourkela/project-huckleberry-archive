@@ -26,7 +26,6 @@ export const login = (displayName, photoURL, email, uid) => async (dispatch) => 
       userRef.set(newUser);
     }
     dispatch({ type: AUTH.PROFILE_STATUS, payload: 'own' });
-    
   } catch (error) {
     console.log(error);
   }

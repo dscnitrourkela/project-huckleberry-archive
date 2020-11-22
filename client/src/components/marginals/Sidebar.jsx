@@ -98,8 +98,7 @@ function ResponsiveDrawer(props) {
         component='h6'
         style={{ position: 'absolute', bottom: 20, marginLeft: 10, color: '#757575' }}
         align='center'>
-        Made with {' '}
-        <a href='https://github.com/kautukkundan/omg-badges'>omg-badges</a> <br></br>
+        Made with <a href='https://github.com/kautukkundan/omg-badges'>omg-badges</a> <br></br>
         remixed by <a href='https://dscnitrourkela.org'>DSC NIT Rourkela</a>
       </Typography>
     </div>
