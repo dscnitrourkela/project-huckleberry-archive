@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Card, CardActionArea, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import HashLoader from "react-spinners/HashLoader";
+import HashLoader from 'react-spinners/HashLoader';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
@@ -16,7 +16,7 @@ const SelfAvatar = ({ user }) => {
       return <h3>Loading...</h3>;
     case null:
       return (
-        <div style={{ widht: '100%', height: '20em',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{ widht: '100%', height: '20em', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <HashLoader size={50} color='#DB4437' />
         </div>
       );
