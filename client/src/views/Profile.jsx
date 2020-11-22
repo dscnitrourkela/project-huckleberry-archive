@@ -57,7 +57,7 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
     default:
       return (
         <Grid container spacing={3} className={classes.container}>
-          {/* <Grid item xs={12} md={12} lg={8} className={classes.badgesContainer}>
+          <Grid item xs={12} md={12} lg={8} className={classes.badgesContainer}>
             <Typography variant='h4' className={classes.typography}>
               Badges
             </Typography>
@@ -89,7 +89,7 @@ function Profile({ profile, fetchUserBadges, fetchUser, setProfileStatus }) {
                 })}
               </Container>
             )}
-          </Grid> */}
+          </Grid>
 
           <Grid item xs={12} md={12} lg={4} className={classes.profileContainer}>
             <SelfAvatar alt='img' />

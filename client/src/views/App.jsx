@@ -32,7 +32,7 @@ function App({ fetchUser, logout, user, setProfileStatus, profile_status }) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         fetchUser(user.uid);
-        // setProfileStatus('own');
+        setProfileStatus('own');
       } else {
         logout();
       }
