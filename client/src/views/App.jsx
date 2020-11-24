@@ -41,7 +41,7 @@ function App({ fetchUser, logout, user, setProfileStatus, profile_status }) {
 
   const renderRoutes = () => (
     <Switch>
-      <Route path={`/livestream`} exact>
+      <Route path={`/`} exact>
         <LiveStream />
       </Route>
 
@@ -55,7 +55,7 @@ function App({ fetchUser, logout, user, setProfileStatus, profile_status }) {
         <Profile profileStatus='shared' />
       </Route>
 
-      {/* <Redirect to={`/livestream`} /> */}
+      <Redirect to={`/`} />
     </Switch>
   );
 
