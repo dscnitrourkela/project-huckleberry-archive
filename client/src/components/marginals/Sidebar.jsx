@@ -63,7 +63,7 @@ function ResponsiveDrawer(props) {
             <ListItemText primary='Home' />
           </ListItem>
         </a>
-        <Link to='/livestream' className={classes.listItem}>
+        <Link to='/' className={classes.listItem}>
           <ListItem button key='Livestream'>
             <ListItemIcon>
               <LiveTvIcon />
