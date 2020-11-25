@@ -7,7 +7,7 @@ const LoginButton = () => {
 
   return (
     <Button variant='outlined' color='primary' onClick={() => loginWithRedirect()}>
-      Log In With GitHub
+      Get Hacktoberfest Badge
     </Button>
   );
 };
