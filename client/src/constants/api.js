@@ -6,7 +6,7 @@ export const API = {
     PROFILE: 'https://badges.dscnitrourkela.org/api/badges/collection/',
   },
   LIVESTREAM: {
-    SLIDO: 'https://app.sli.do/event/cdqyh0vx',
+    SLIDO: 'https://app.sli.do/event/yo8unfqh',
     TWITCH: 'https://www.twitch.tv/dscnitrourkela',
   },
   CLOUDINARY: {
